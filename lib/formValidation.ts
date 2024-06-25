@@ -11,3 +11,8 @@ export const FormSchema = z.object({
       selection: z.string(),
       mood: z.string().optional(),
   })
+
+export const CalendarMoodSchema = z.object({
+  mood: z.string(),
+  moodDate: z.string(),
+})

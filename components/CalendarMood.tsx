@@ -1,20 +1,18 @@
 "use client"
 import { useState } from "react";
-import { CalendarUI } from "./CalendarUI";
 import { Button } from "./ui/button";
-import { FaRegSmileBeam } from "react-icons/fa";
-import { FaRegFaceSmile } from "react-icons/fa6";
-import { FaRegFaceMeh } from "react-icons/fa6";
-import { FaRegFaceFrown } from "react-icons/fa6";
-import { FaRegFaceAngry } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "./ui/use-toast";
 import PieChartUI from "./PieChartUI";
+import { Calendar } from "@/components/ui/calendar"
+
 export default function CalendarMood() {
+    const [dateSelected, setDateSelected] = useState<Date | undefined>(new Date())
     const [selectedMood, setSelectedMood] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const currentDate = new Date()
   
     const handleMoodClick = (mood: string | null) => {
       setSelectedMood(mood);
@@ -24,26 +22,50 @@ export default function CalendarMood() {
         }, 10);
       } else {
         setTimeout(() => {
-          toast({description: `Mood was reset`,});
+          toast({description: `Mood was reset`, duration:5});
         }, 10);      
       }
   }
+  const fetchExistingMoods = async () => {
+    try {
+        const response = await axios.get(`/api/calendar`);
+        return response.data;
+    } catch (error) {
+        console.error("API Request Error:", error);
+        toast({
+            title: "Error",
+            description: "An error occurred while fetching existing moods. Please try again.",
+        });
+        return [];
+    }
+};
   
     const onSubmit = async () => {
       if (!selectedMood) {
         alert("Please select a mood before submitting.");
-        return;
+        return; //abort
+      } else if (dateSelected && dateSelected.getTime() > currentDate.getTime()) {
+        alert("Selected Date cannot be greater than current date.");
+        return; //abort
       }
   
       try {
         setLoading(true);
-        const response = await axios.post(`/api/calendar`, { mood: selectedMood });
+        const existingMoods = await fetchExistingMoods();
+        const dateExists = existingMoods.some((entry: any) => new Date(entry.moodDate).getTime() === dateSelected?.getTime());
+
+        if (dateExists) {
+            alert("Date selected cannot be same as one previously selected.");
+            return; // abort
+        }
+        const response = await axios.post(`/api/calendar`, { mood: selectedMood, moodDate:dateSelected });
         console.log("Success!", response);
         toast({
           title: "Success",
           description: "Your mood entry has been submitted successfully.",
+          duration: 500,
         });
-        router.push(`/explore`);
+        router.refresh()
       } catch (error) {
         console.error("API Request Error:", error);
         toast({
@@ -60,11 +82,13 @@ export default function CalendarMood() {
         <div className="grid grid-cols-2 py-8 px-4">
           <div className="grid md:grid-cols-[4fr_1fr] grid-cols-1 p-4">
             <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-md text-center">
+              <p className="md:text-md text-sm">
                 Select a date and select your mood on that respective date
               </p>
-              <CalendarUI />
-              <Button onClick={onSubmit} disabled={loading}>
+              <div className="mx-auto items-center justify-center">
+                <Calendar mode="single" selected={dateSelected} onSelect={setDateSelected} className="rounded-md border" styles={{head_cell: {width: "30px",},}}/>
+              </div>
+              <Button className="hover:scale-125 bg-gradient-to-r from-pink-500 to-blue-400" onClick={onSubmit} disabled={loading}>
                 {loading ? "Submitting..." : "Submit"}
               </Button>
             </div>
@@ -93,9 +117,9 @@ export default function CalendarMood() {
               <div className="hover:scale-125" onClick={() => handleMoodClick(null)}> 🔄 </div>
             </div>
           </div>
-          <div className=" flex flex-col">
-            <div className="text-3xl"> Pie chart data </div>
-            <PieChartUI />
+          <div className=" flex flex-col items-center justify-center">
+            {/* <div className="text-3xl"> Pie chart data </div> */}
+            {/* <PieChartUI /> */}
 
           </div>
         </div>
