@@ -6,6 +6,7 @@ import { Entry } from '@prisma/client';
 import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '../ui/button';
+import { FaEdit } from "react-icons/fa";
 interface EditButtonProps {
   post: Entry
 }
@@ -22,7 +23,7 @@ const EditButton: FC<EditButtonProps> = ({ post }) => {
   }
   return (
       // <Link href={`/post/${postIdString}/edit`}> 
-      <Button variant="default" onClick={goToEditPage} disabled={loading}> Edit </Button>
+      <Button variant="ghost" onClick={goToEditPage} disabled={loading}> <FaEdit className='text-2xl' /> </Button>
       // </Link>
   );
 

@@ -49,26 +49,30 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
 
   return (
     <>
-    <div className='grid md:grid-cols-2 sm:grid-cols-1 gap-6'>
+    <div className='grid md:grid-cols-3 sm:grid-cols-2 gap-6'>
       {currentItems?.map((entry, index) => { // map each entry item to its index
         const creationDate = entry?.createdAt
         return (
+
           <Card key={index}>
+            <div className='bg-white/20 backdrop-blur-lg rounded-xl px-1'>
               <CardHeader>
                 <CardTitle>
-                <p className={`${bodyText.className} text-base text-wrap`}> {entry && creationDate ? ` Your entry on ${dateFormat(new Date(creationDate).toISOString())}`: 'Your entry'}</p>
+                <p className={`${bodyText.className} text-md text-wrap`}> {entry && creationDate ? ` Your entry on ${dateFormat(new Date(creationDate).toISOString())}`: 'Your entry'}</p>
                 </CardTitle>
               </CardHeader>
               <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-4'>
                   <p className={`${bodyText.className} text-sm`}> {entry ? entry.entry : ''} </p>
               </CardContent>
               <CardFooter>
-              <div className='flex flex-row gap-4'>
+              <div className='flex flex-row'>
                   {entry && <DeleteButton post = {entry}/>}
                 {entry && <EditButton post={entry} />}
                 </div>
               </CardFooter>
+              </div>
           </Card>
+
         );
       })}
     </div>
