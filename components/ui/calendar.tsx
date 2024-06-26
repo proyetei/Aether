@@ -2,19 +2,35 @@
 
 import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { DayPicker } from "react-day-picker"
-
+import { DayPicker, type DayContentProps } from "react-day-picker"
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
-export type CalendarProps = React.ComponentProps<typeof DayPicker>
+export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
+  moodMap: { [key: string]: string }; // Map from date to mood
+}
 
 function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  moodMap = {},
   ...props
 }: CalendarProps) {
+  const HighlightDay = ( dayProps: DayContentProps) => {
+    const date = dayProps.date;
+    const day = date.getDate();
+    const dateKey = date.toDateString();
+    const emoji = moodMap[dateKey];
+
+    return (
+      <div className="relative">
+        <span style={{whiteSpace: "nowrap"}}>{day}</span>
+        {emoji && <div className="absolute inset-0 flex items-center justify-center">{emoji}</div>}
+      </div>
+    );
+  };
+
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -56,6 +72,7 @@ function Calendar({
       components={{
         IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4" />,
         IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4" />,
+        DayContent: HighlightDay,
       }}
       {...props}
     />
@@ -64,3 +81,4 @@ function Calendar({
 Calendar.displayName = "Calendar"
 
 export { Calendar }
+
