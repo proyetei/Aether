@@ -35,13 +35,13 @@ export async function POST(req: Request) {
   const {
     entry,
     selection,
-    mood,
+    question,
   } = FormSchema.parse(body);
     const journal = await db.entry.create({
       data: {
         entry,
         selection,
-        mood,
+        question,
         userId: user?.id,
       },
     });

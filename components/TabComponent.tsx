@@ -63,7 +63,7 @@ const TabComponent: React.FC = () => {
                 </p>
             ) : (
             <div className="grid grid-cols-1 gap-4">
-              <Display entries={filteredExperience} />  
+            { filteredExperience.length === 0 ? (<p> No journals yet. Click "add new" to add one. </p>) : ( <Display entries={filteredExperience} />)} 
             </div> )}
           </CardContent>
         </Card>
@@ -83,8 +83,8 @@ const TabComponent: React.FC = () => {
                 Loading... <Loader2 className="animate-spin" />
                 </p>
             ) : (
-          <div className="grid grid-cols-1 gap-2">
-          <Display entries={filteredDreams} />
+          <div className="grid grid-cols-1 gap-4">
+            { filteredDreams.length === 0 ? (<p> No dreams yet. Click "add new" to add one. </p>) : ( <Display entries={filteredDreams} />)}
           </div> )}
           </CardContent>
         </Card>

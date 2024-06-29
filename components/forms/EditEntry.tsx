@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "../ui/use-toast";
 import { FormSchema } from "@/lib/formValidation";
 import {  bodyText, mainTitle, subTitle } from "@/fonts/font";
+import { Input } from "../ui/input";
 
 interface EditProps {
   post: Entry
@@ -40,7 +41,7 @@ const EditEntry: FC<EditProps> = ({ post }) => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       entry: post.entry,
-      mood: post?.mood || '',
+      question: post?.question || '',
       selection: post.selection,
     },
   });
@@ -48,7 +49,7 @@ const EditEntry: FC<EditProps> = ({ post }) => {
   const onSubmit = async(data: z.infer<typeof FormSchema>) => {
     try {
       setLoading(true); 
-    await axios.put(`/api/post/${post.id}`, {entry: data.entry, selection: data.selection, mood: data?.mood})
+    await axios.put(`/api/post/${post.id}`, {entry: data.entry, selection: data.selection, question: data?.question})
       .then((response) => {
         console.log("Success!", response);
       })
@@ -116,30 +117,17 @@ const EditEntry: FC<EditProps> = ({ post }) => {
             </FormItem>
           )}
         />
-          <FormField
+        <FormField
           control={form.control}
-          name="mood"
+          name="question"
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> Whats your mood today? </div> 
+                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
               </FormLabel>
-              {/* Set the value that was chosen in order to successfully send to database*/}
-              <Select onValueChange={field.onChange} defaultValue={field?.value}>
               <FormControl>
-                  <SelectTrigger className="w-[180px] text-slate-900 bg-pink-300">
-                    <SelectValue placeholder="I'm feeling..." />
-                  </SelectTrigger>
+                <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" />
                 </FormControl>
-                <SelectContent className="text-black bg-pink-300">
-                <SelectItem value="Excited"> Excited </SelectItem>
-                  <SelectItem value="Happy"> Happy </SelectItem>
-                  <SelectItem value="Neutral"> Neutral </SelectItem>
-                  <SelectItem value="Anxious"> Anxious </SelectItem>
-                  <SelectItem value="Sad"> Sad </SelectItem>
-                  <SelectItem value="Angry"> Angry </SelectItem>
-                </SelectContent>
-              </Select>
               <FormMessage/>
             </FormItem>
           )}

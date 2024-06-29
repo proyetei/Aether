@@ -25,6 +25,7 @@ import { useToast } from "@/components/ui/use-toast"
 import {  bodyText, subTitle } from "@/fonts/font"
 import { useRouter } from "next/navigation"
 import { FormSchema } from "@/lib/formValidation"
+import { Input } from "../ui/input"
  
 export default function EntryForm() {
   const { toast } = useToast()
@@ -43,7 +44,7 @@ export default function EntryForm() {
   }
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const response = await axios.post(apiRoute, {entry: data.entry, selection: data.selection, mood: data?.mood});
+      const response = await axios.post(apiRoute, {entry: data.entry, selection: data.selection, question: data?.question});
       await axios.get(apiRoute, {});
       form.reset();
       router.push("/explore")
@@ -83,7 +84,7 @@ export default function EntryForm() {
             </FormItem>
           )}
         />
-        <div className="py-4 grid grid-cols-2 gap-4">
+        <div className="py-4 flex flex-cols-2 gap-4">
         <FormField
           control={form.control}
           name="selection"
@@ -95,7 +96,7 @@ export default function EntryForm() {
               {/* Set the value that was chosen in order to successfully send to database*/}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
-                  <SelectTrigger className="w-[180px] text-slate-900 bg-pink-300">
+                  <SelectTrigger className="text-slate-900 bg-pink-300">
                     <SelectValue placeholder="Experience/Dream?" />
                   </SelectTrigger>
                 </FormControl>
@@ -110,28 +111,15 @@ export default function EntryForm() {
         />
           <FormField
           control={form.control}
-          name="mood"
+          name="question"
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> Whats your mood today? </div> 
+                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
               </FormLabel>
-              {/* Set the value that was chosen in order to successfully send to database*/}
-              <Select onValueChange={field.onChange} defaultValue={field?.value}>
               <FormControl>
-                  <SelectTrigger className="w-[180px] text-slate-900 bg-pink-300">
-                    <SelectValue placeholder="I'm feeling..." />
-                  </SelectTrigger>
+                <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" />
                 </FormControl>
-                <SelectContent className="text-black bg-pink-300">
-                <SelectItem value="Excited"> Excited </SelectItem>
-                  <SelectItem value="Happy"> Happy </SelectItem>
-                  <SelectItem value="Neutral"> Neutral </SelectItem>
-                  <SelectItem value="Anxious"> Anxious </SelectItem>
-                  <SelectItem value="Sad"> Sad </SelectItem>
-                  <SelectItem value="Angry"> Angry </SelectItem>
-                </SelectContent>
-              </Select>
               <FormMessage/>
             </FormItem>
           )}

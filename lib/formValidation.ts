@@ -9,7 +9,7 @@ export const FormSchema = z.object({
         message: "Journal must not be greater than 2000 characters",
       }),
       selection: z.string(),
-      mood: z.string().optional(),
+      question: z.string().optional(),
   })
 
 export const CalendarMoodSchema = z.object({

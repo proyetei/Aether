@@ -85,11 +85,6 @@ useEffect(() => {
       const existingMoods = await axios.get(`/api/calendar`);
       const dateExists = existingMoods.data.some((entry: MoodEntry) => new Date(entry.moodDate).getTime() === dateSelected?.getTime());
 
-      if (dateExists) {
-        alert("Date selected cannot be the same as one previously selected.");
-        return;
-      }
-
       await axios.post(`/api/calendar`, { mood: selectedMood, moodDate: dateSelected });
       toast({
         title: "Success",
