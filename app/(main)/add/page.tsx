@@ -4,14 +4,7 @@ import NotAuthenticated from "@/components/NotAuthenticated"
 
 const AddPage = async () => {
     return (
-      <div>
-        <SignedIn>
-          <Add />
-        </SignedIn>
-        <SignedOut>
-          <NotAuthenticated />
-        </SignedOut>
-      </div>
+      <Add />
     )
 }
 export default AddPage;
