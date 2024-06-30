@@ -1,7 +1,7 @@
 # Aether AI
 
 ## Project Description 
-
+A full-stack AI application powered by GPT-4 where users to journal their nightly dreams and their life experiences, and receive comprehensive analysis of their own psyche by comparing the two. Users can also track their moods with a calendar mood tracker and view mood analytics charts to keep track of their mental health.
 
 ## Sections
 - Homepage
