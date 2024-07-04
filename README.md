@@ -1,13 +1,14 @@
 # Aether AI
 
 ## Project Description 
-A full-stack AI web application made with React, Typescript, Tailwind, and MongoDB that uses Large language models (LLM) of OpenAI's GPT-4-Turbo API to generate comprehensive analysis of user’s mood patterns, emotions and psychology by taking inputs of nightly dreams and personal life events. User's can also keep a track of their mood patterns through entering how they are feeling on each day, this helps the Aether Bot to generate a more thorough analysis. 
+A full-stack AI application powered by GPT-4 where users to journal their nightly dreams and their life experiences, and receive comprehensive analysis of their own psyche by comparing the two. Users can also track their moods with a calendar mood tracker and view mood analytics charts to keep track of their mental health.
 
 ## Sections
 - Homepage
-- Add entry
-- Explore journal
-- Analysis page
+- Add dream journal or event journal entry
+- Explore journals
+- Calendar Mood tracker + Mood Analytics
+- Psychology analysis page
 - About the app
 
 ## More comprehensive details on the tech stack
@@ -16,7 +17,7 @@ A full-stack AI web application made with React, Typescript, Tailwind, and Mongo
 - Typescript as the language
 - Tailwind CSS for styling
 - React Hook forms and ZOD validation for form creation and validations schemas
-- OpenAI GPT 3.5 Turbo API for the analysis
+- OpenAI GPT 4.0 API for the analysis
 - Prisma ORM for defining application data model schemas
 - MongoDB database and AWS3 cloud storage
 - Clerk for user authentication
