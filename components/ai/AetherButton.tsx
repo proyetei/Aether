@@ -47,13 +47,22 @@ const AetherButton: React.FC = () => {
     }
     return(
         <div className=" flex flex-col items-center justify-center gap-4">
-            <div className="hover:drop-shadow-glow hover:scale-125">
-                <button onClick={analyzeEntries}>
-                    <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
-                </button>
-            </div>
-            <div>
-                <p> Click me! </p>
+            <div className="flex flex-col items-center justify-center">
+                {(!lastDreamEntry || !lastExperienceEntry) ? (
+                    <>
+                    <button disabled={true} className="opacity-50">
+                        <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
+                    </button> 
+                    <p> One of the entries is missing, cannot perform analysis </p>
+                    </>
+                ) : (
+                    <>
+                    <button onClick={analyzeEntries} className="hover:drop-shadow-glow hover:scale-125">
+                        <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
+                    </button>
+                    <p> Click me ! </p>
+                    </>
+                )}
             </div>
             {isLoading ? (
                 <p className="flex items-center gap-2">

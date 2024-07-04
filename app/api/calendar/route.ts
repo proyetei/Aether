@@ -32,6 +32,10 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
   const user = await initializeUser();
+  const { userId } = auth();
+  if (!userId || !user) {
+    return redirect("/");
+  }
   const {
     mood,
     moodDate,
@@ -40,7 +44,7 @@ export async function POST(req: Request) {
       data: {
         mood,
         moodDate,
-        userId: user?.id,
+        userId: user.id,
       },
     });
 

@@ -62,13 +62,14 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
                 </CardTitle>
               </CardHeader>
               <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-4'>
-                  <p className={`${bodyText.className} text-sm`}> {entry ? entry.entry : ''} </p>
+                  <p className={`${bodyText.className} text-sm pb-2`}> {entry ? entry.entry : ''} </p>
+                  <p className={`${bodyText.className} text-sm pt-2`}> {!entry.question ? '' : ( <> <hr /> I am grateful for {entry.question} </> )} </p>
               </CardContent>
               <CardFooter>
               <div className='flex flex-row'>
                   {entry && <DeleteButton post = {entry}/>}
-                {entry && <EditButton post={entry} />}
-                </div>
+                  {entry && <EditButton post={entry} />}
+              </div>
               </CardFooter>
               </div>
           </Card>

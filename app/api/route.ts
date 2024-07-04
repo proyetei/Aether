@@ -32,6 +32,10 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
   const user = await initializeUser();
+  const { userId } = auth();
+  if (!userId || !user) {
+    return redirect("/");
+  }
   const {
     entry,
     selection,
@@ -42,7 +46,7 @@ export async function POST(req: Request) {
         entry,
         selection,
         question,
-        userId: user?.id,
+        userId: user.id,
       },
     });
 

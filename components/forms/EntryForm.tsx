@@ -49,8 +49,7 @@ export default function EntryForm() {
       form.reset();
       router.push("/explore")
       toast({
-        title: "Success!",
-        description: "Your journal was submitted",
+        title: "Submitted!",
       })
 
     } catch(error: any){
@@ -118,7 +117,7 @@ export default function EntryForm() {
                 <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
               </FormLabel>
               <FormControl>
-                <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" />
+                <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" {...field} />
                 </FormControl>
               <FormMessage/>
             </FormItem>
