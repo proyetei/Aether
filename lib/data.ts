@@ -39,9 +39,12 @@ export const projectData = [
         imgSrc: "../explore_dream.png"
     },
     {
-        imgSrc: "../edit.png"
+        imgSrc: "../edit.jpeg"
     },
     {
-        imgSrc: "../analysispage.png"
+        imgSrc: "../calendar_mood.png"
+    },
+    {
+        imgSrc: "../analysispage.jpeg"
     }
 ]

@@ -19,13 +19,17 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { SignedOut } from "@clerk/nextjs";
 import { Separator } from "./ui/separator";
+import { mainTitle } from "@/fonts/font";
 
 
 export default function AboutContent() {
   const router = useRouter()
   return (
-      <div className="text-center p-4">
+      <div className="w-3/4 items-center rounded-lg relative text-center">
         <Separator className="my-12 opacity-30"/>
+        <div className="animate-fade animate-duration-[2000ms] animate-ease-out my-6">
+          <h1 className={` ${mainTitle.className} text-left md:text-6xl text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-600`}> About </h1>
+        </div>
         <motion.div
           viewport={{ once: true }}
           whileInView="show"
@@ -44,10 +48,10 @@ export default function AboutContent() {
               },
             },
           }}
-          className="max-w-screen-lg mx-auto p-8 rounded-sm shadow-lg bg-black/30 backdrop-blur-s"
+          className="w-full mx-auto p-2 rounded-sm shadow-lg"
         >
 
-          <div className="flex flex-col space-y-8 md:grid md:grid-cols-1 sm:grid-cols-1">
+          <div className="flex flex-col space-y-8 md:grid grid-cols-1">
                   <Carousel>
                     <CarouselContent>
                       {Array.from({ length: projectData.length }).map((_, index) => (
@@ -65,10 +69,10 @@ export default function AboutContent() {
                     <CarouselNext />
                   </Carousel>
             </div>
-          <div className="grid grid-cols-1 gap-4 items-center py-3">
+        </motion.div>
+        <div className="items-center rounded-lg bg-black/80 backdrop-blur-s">
             <AboutText />
           </div>
-        </motion.div>
       </div>
   );
 }
