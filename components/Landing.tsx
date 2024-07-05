@@ -28,7 +28,7 @@ export default function Landing() {
           }}
           className="flex w-full flex-col items-start gap-4 relative z-10"
         >
-          <div className="flex flex-row gap-4 items-center justify-center drop-shadow-blue animate-flip-up animate-ease-in-out">
+          <div className="flex flex-row gap-4 items-center justify-center drop-shadow-blue animate-flip-up animate-duration-[1000ms] animate-delay-500 animate-ease-in-out">
             <Image src="/aether-bot.svg" alt="Aether bot" height={70} width={70} />
             <p className={`${logo.className} md:text-7xl text-5xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500 z-10`}>
               Aether
