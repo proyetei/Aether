@@ -57,7 +57,7 @@ const AetherButton: React.FC = () => {
                     </>
                 ) : (
                     <>
-                    <button onClick={analyzeEntries} className="hover:drop-shadow-glow hover:scale-125">
+                    <button onClick={analyzeEntries} className="hover:drop-shadow-blue hover:scale-125">
                         <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
                     </button>
                     <p> Click me ! </p>

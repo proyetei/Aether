@@ -90,7 +90,7 @@ export default function EntryForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> Experience or a dream journal? **  </div> 
+                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-blue rounded-lg text-cyan-100`}> Experience or a dream journal? **  </div> 
               </FormLabel>
               {/* Set the value that was chosen in order to successfully send to database*/}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -114,7 +114,7 @@ export default function EntryForm() {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
+                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-blue rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
               </FormLabel>
               <FormControl>
                 <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" {...field} />
@@ -125,7 +125,7 @@ export default function EntryForm() {
         />
         </div>
         <div className="items-center justify-center text-center">
-          <Button className="bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-glow hover:scale-125" variant="default">
+          <Button className="bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-blue hover:scale-125" variant="default">
             Submit
           </Button>
         </div>

@@ -2,7 +2,7 @@ import Footer from "@/components/defaults/Footer";
 import { auth } from "@clerk/nextjs";
 import Landing from "@/components/Landing";
 import { redirect } from "next/navigation";
-import { NavbarTwo } from "./_components/NavbarTwo";
+import AboutContent from "@/components/AboutContent";
 const LandingPage = () => {
   const {userId} = auth();
   if (userId){
@@ -10,10 +10,13 @@ const LandingPage = () => {
   }
   return (
     <>
-        <NavbarTwo />
+      <div className="min-h-screen flex flex-col items-center justify-center py-16">
         <Landing />
-        <Footer />
+        <AboutContent />
+      </div>
+      <Footer />
     </>
+
   )
 }
 export default LandingPage;

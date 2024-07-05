@@ -63,7 +63,7 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
               </CardHeader>
               <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-4'>
                   <p className={`${bodyText.className} text-sm pb-2`}> {entry ? entry.entry : ''} </p>
-                  <p className={`${bodyText.className} text-sm pt-2`}> {!entry.question ? '' : ( <> <hr /> I am grateful for {entry.question} </> )} </p>
+                  <p className={`${bodyText.className} text-sm`}> {!entry.question ? '' : ( <> <hr className='pb-2'/> What is something you're grateful or proud of ? - {entry.question} </> )} </p>
               </CardContent>
               <CardFooter>
               <div className='flex flex-row'>
@@ -107,10 +107,10 @@ function PaginationSection({
   return(
     <Pagination>
   <PaginationContent className='gap-4 py-4'>
-    <PaginationItem className='bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-glow rounded-lg text-slate-50'>
+    <PaginationItem className='bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-blue rounded-lg text-slate-50'>
       <PaginationPrevious onClick={() => handlePrevPage()} />
     </PaginationItem>
-    <PaginationItem className='bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-glow rounded-lg text-slate-50'>
+    <PaginationItem className='bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-blue rounded-lg text-slate-50'>
       <PaginationNext onClick={() => handleNextPage()} />
     </PaginationItem>
   </PaginationContent>

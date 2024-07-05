@@ -73,9 +73,10 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
       dropShadow: {
-        glow: [
-          "0 0px 15px rgba(255, 122, 191, 0.8)",
-        ]
+        pink: "0 0px 15px rgba(255, 122, 191, 0.8)",
+        blue: "0 0px 15px rgba(45, 85, 255, 0.8)",
+        white: "0 0px 15px rgba(255, 255, 255, 1)"
+        
       },
     },
   },

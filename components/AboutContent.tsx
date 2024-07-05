@@ -18,13 +18,14 @@ import AboutText from "./AboutText";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { SignedOut } from "@clerk/nextjs";
+import { Separator } from "./ui/separator";
 
 
 export default function AboutContent() {
   const router = useRouter()
   return (
-    <div className="min-h-screen flex items-center justify-center">
       <div className="text-center p-4">
+        <Separator className="my-12 opacity-30"/>
         <motion.div
           viewport={{ once: true }}
           whileInView="show"
@@ -43,10 +44,10 @@ export default function AboutContent() {
               },
             },
           }}
-          className="max-w-screen-lg mx-auto p-8 rounded-sm shadow-lg bg-slate-900"
+          className="max-w-screen-lg mx-auto p-8 rounded-sm shadow-lg bg-black/30 backdrop-blur-s"
         >
 
-          <div className="flex flex-col items-center justify-center space-y-8 md:grid md:grid-cols-1 sm:grid-cols-1">
+          <div className="flex flex-col space-y-8 md:grid md:grid-cols-1 sm:grid-cols-1">
                   <Carousel>
                     <CarouselContent>
                       {Array.from({ length: projectData.length }).map((_, index) => (
@@ -67,12 +68,7 @@ export default function AboutContent() {
           <div className="grid grid-cols-1 gap-4 items-center py-3">
             <AboutText />
           </div>
-          <SignedOut>
-          <div className="border-t border-gray-300 w-full my-4"></div>
-          <Button className="bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-glow" onClick={() => router.push("/")}> Go Home </Button>
-          </SignedOut>
         </motion.div>
       </div>
-    </div>
   );
 }
