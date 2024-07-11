@@ -7,9 +7,11 @@ import EnterButton from "./buttons/EnterButton";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { calculateLevels } from "@/lib/calculateLevels";
+import Scoreboard from "./Scoreboard";
 const Homepage: React.FC = () => {
   const [getPoints, setUserPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchUserPoints = async () => {
       try {
@@ -29,11 +31,20 @@ const Homepage: React.FC = () => {
   return (
     <div className="min-h-screen">   
       <div className="relative text-center max-w-full items-center justify-center p-8 rounded-lg shadow-lg">
-      <div className={`${subTitle.className} text-lg text-end`}>
-        <p> Your current points: {getPoints !== null ? getPoints : '0'}</p>
-        <p> Current Level: {getPoints !== null ? calculateLevels(getPoints) : calculateLevels(0)} </p>
-      </div>
-        <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+      <div className={`${subTitle.className} flex justify-center items-center`}>
+      {(getPoints !== null) ? (<Scoreboard
+        totalPoints={getPoints}
+        currentLevel={calculateLevels(getPoints)[0]}
+        nextLevel={calculateLevels(getPoints)[0] + 1}
+        progressPercentage={calculateLevels(getPoints)[1]} 
+      />) : (<Scoreboard
+        totalPoints={0}
+        currentLevel={1}
+        nextLevel={2}
+        progressPercentage={0}
+      />)}
+    </div>
+        <div className="relative z-10 flex flex-col items-center justify-center mt-8">
           {/* Title */}
           <motion.div
             initial="hidden"
@@ -44,7 +55,7 @@ const Homepage: React.FC = () => {
             }}
             transition={{ duration: 0.4 }}
           >
-            <h1 className={`${mainTitle.className} md:text-7xl text-5xl font-bold p-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500`}>
+            <h1 className={`${mainTitle.className} md:text-7xl text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500`}>
               Welcome back!
             </h1>
           </motion.div>
