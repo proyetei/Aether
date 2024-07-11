@@ -20,24 +20,24 @@ export async function GET(req: Request){
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
 export async function POST(req: Request) {
-    try {
-      const user = await initializeUser();
-      const { userId } = auth();
-      if (!userId || !user) {
-        return redirect("/");
+  try {
+    const user = await initializeUser();
+    const { userId } = auth();
+    if (!userId || !user) {
+      return redirect("/");
+    }
+    const returnUserPoints = await db.user.update({
+      where: { userId },
+      data: {
+        userPoints: user.userPoints + 3
       }
-      const returnUserPoints = await db.user.update({
-        where: { userId },
-        data: {
-          userPoints: user.userPoints + 3
-        }
-      });
+    });
   
-      return NextResponse.json( {returnUserPoints} );
-    } catch (error: any) {
+    return NextResponse.json( {returnUserPoints} );
+  } catch (error: any) {
       console.log("Error with POST API endpoint ", error);
-  
       return new NextResponse("Internal Error", { status: 500 });
     }
 }

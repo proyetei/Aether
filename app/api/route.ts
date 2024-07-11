@@ -14,11 +14,11 @@ export async function GET(
     const currentUser = await getCurrentUser();
     const { userId } = auth();
 
-  if (!userId) {
-    return redirect("/");
-  }
+    if (!userId || !currentUser) {
+      return redirect("/");
+    }
     const result = await db.entry.findMany({
-      where:{userId: currentUser?.id},
+      where:{userId: currentUser.id},
     });
 
     return NextResponse.json( result );
