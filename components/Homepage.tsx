@@ -1,23 +1,38 @@
 "use client";
-
+import React from "react";
 import { motion } from "framer-motion";
 import { logo, mainTitle, subTitle } from "@/fonts/font";
 import { useEffect, useState } from "react";
 import EnterButton from "./buttons/EnterButton";
 import axios from "axios";
-import { User } from "@prisma/client";
-
-
-interface UserProps{
-  userInfo: User
-}
-const Homepage: React.FC<UserProps> = ({userInfo}) => {
+import { ClipLoader } from "react-spinners";
+import { calculateLevels } from "@/lib/calculateLevels";
+const Homepage: React.FC = () => {
+  const [getPoints, setUserPoints] = useState<number | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  useEffect(() => {
+    const fetchUserPoints = async () => {
+      try {
+        const response = await axios.get('/api/points', {});
+        setUserPoints(response.data);
+      } catch (error) {
+        console.error('Error fetching user points:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserPoints();
+  }, []);
+  if (loading) {
+    return <ClipLoader />
+  }
   return (
     <div className="min-h-screen">   
       <div className="relative text-center max-w-full items-center justify-center p-8 rounded-lg shadow-lg">
-      <div className="text-end">
-            <p className={`${subTitle.className} text-lg`}>Your current points: {userInfo?.userPoints !== null ? userInfo?.userPoints : '0'}</p>
-            </div>
+      <div className={`${subTitle.className} text-lg text-end`}>
+        <p> Your current points: {getPoints !== null ? getPoints : '0'}</p>
+        <p> Current Level: {getPoints !== null ? calculateLevels(getPoints) : calculateLevels(0)} </p>
+      </div>
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
           {/* Title */}
           <motion.div

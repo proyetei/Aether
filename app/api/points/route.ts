@@ -11,15 +11,10 @@ export async function GET(req: Request){
   try {
     const currentUser = await getCurrentUser();
     const { userId } = auth();
-
-  if (!userId) {
-    return redirect("/");
-  }
-    const result = await db.user.findMany({
-      where:{userId: currentUser?.id},
-    });
-
-    return NextResponse.json( result );
+    if (!userId || !currentUser) {
+      return redirect("/");
+    }
+    return NextResponse.json( currentUser.userPoints );
   } catch (error: any) {
     console.log("Error with GET API endpoint", error);
     return new NextResponse("Internal Error", { status: 500 });
