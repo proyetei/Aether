@@ -1,14 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { logo, mainTitle } from "@/fonts/font";
-import { useState } from "react";
+import { logo, mainTitle, subTitle } from "@/fonts/font";
+import { useEffect, useState } from "react";
 import EnterButton from "./buttons/EnterButton";
+import axios from "axios";
+import { User } from "@prisma/client";
 
-export default function Homepage() {
+
+interface UserProps{
+  userInfo: User
+}
+const Homepage: React.FC<UserProps> = ({userInfo}) => {
   return (
     <div className="min-h-screen">   
       <div className="relative text-center max-w-full items-center justify-center p-8 rounded-lg shadow-lg">
+      <div className="text-end">
+            <p className={`${subTitle.className} text-lg`}>Your current points: {userInfo?.userPoints !== null ? userInfo?.userPoints : '0'}</p>
+            </div>
         <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
           {/* Title */}
           <motion.div
@@ -40,3 +49,5 @@ export default function Homepage() {
     </div>
   );
 }
+
+export default Homepage

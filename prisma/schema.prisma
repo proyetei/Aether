@@ -19,6 +19,7 @@ model User {
   entries    Entry[]
   analysis   Analysis[]
   calendarMood CalendarMood[]
+  userPoints     Int     @default(0)
 
 }
 

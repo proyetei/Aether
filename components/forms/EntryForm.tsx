@@ -1,5 +1,5 @@
 "use client"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -23,35 +23,31 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import {  bodyText, subTitle } from "@/fonts/font"
-import { useRouter } from "next/navigation"
+import { redirect, useRouter } from "next/navigation"
 import { FormSchema } from "@/lib/formValidation"
 import { Input } from "../ui/input"
- 
-export default function EntryForm() {
-  const { toast } = useToast()
+import { Entry, User} from "@prisma/client"
+import { getCurrentUser } from "@/lib/getCurrentUser"
+import { currentUser } from '@clerk/nextjs/server';
+
+const EntryForm: React.FC = () => {
+  
+  const router = useRouter();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
-
-  const apiRoute = '/api'
-  const router = useRouter();
  
-  const formEntry = form.getValues();
-
-
-  const handleSubmission = () => {
-    console.log("Message entry:", formEntry);
-  }
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
-      const response = await axios.post(apiRoute, {entry: data.entry, selection: data.selection, question: data?.question});
-      await axios.get(apiRoute, {});
+      await axios.post("/api", {entry: data.entry, selection: data.selection, question: data?.question });
+      await axios.post("/api/points", {} )
+      await axios.get("/api", {});
       form.reset();
       router.push("/explore")
       toast({
         title: "Submitted!",
       })
-
     } catch(error: any){
       console.error("API Request Error:", error);
       toast({
@@ -134,3 +130,4 @@ export default function EntryForm() {
     </div>
   )
 }
+export default EntryForm

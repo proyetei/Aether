@@ -43,7 +43,7 @@ const TabComponent: React.FC = () => {
   }, []);
   return (
     <Tabs defaultValue="experience">
-      <TabsList className={`grid w-full grid-cols-2 bg-zinc-900 ${subTitle.className}`}>
+      <TabsList className={`flex items-center justify-center gap-8 w-full bg-transparent ${subTitle.className}`}>
         {/* EXPERIENCE/MEMORY */}
         <TabsTrigger value="experience" > Experience/Memory </TabsTrigger>
         <TabsTrigger value="dream"> Dream </TabsTrigger>

@@ -31,16 +31,16 @@ export async function GET(
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-  const user = await initializeUser();
-  const { userId } = auth();
-  if (!userId || !user) {
-    return redirect("/");
-  }
-  const {
-    entry,
-    selection,
-    question,
-  } = FormSchema.parse(body);
+    const user = await initializeUser();
+    const { userId } = auth();
+    if (!userId || !user) {
+      return redirect("/");
+    }
+    const {
+      entry,
+      selection,
+      question,
+    } = FormSchema.parse(body);
     const journal = await db.entry.create({
       data: {
         entry,
