@@ -6,7 +6,7 @@ interface layoutProps {
 
 const layout: FC<layoutProps> = ({ children }) => {
   return (
-    <div>
+    <div className="min-h-screen">
       <Suspense fallback={<Loading />}>
       {children}
       </Suspense>

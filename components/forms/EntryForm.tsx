@@ -67,7 +67,7 @@ const EntryForm: React.FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm ${bodyText.className} p-4 rounded-lg`}> <span className=" md:text-md text-sm text-cyan-100"> You can begin journaling here. For the most accurate analysis, we recommend journaling both personal life and dream journaling on the same day. </span> </div> </FormLabel>
+                <div className={`bg-white/10 backdrop-blur-sm ${bodyText.className} p-4 rounded-lg`}> <span className=" md:text-md text-sm text-cyan-100"> Begin your journaling adventure here! Collect +3 points per entry and +2 points for answering the prompt. </span> </div> </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Begin journaling..."
@@ -86,7 +86,7 @@ const EntryForm: React.FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-blue rounded-lg text-cyan-100`}> Experience or a dream journal? **  </div> 
+                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-blue rounded-lg text-cyan-100`}> Select category **  </div> 
               </FormLabel>
               {/* Set the value that was chosen in order to successfully send to database*/}
               <Select onValueChange={field.onChange} defaultValue={field.value}>

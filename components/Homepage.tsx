@@ -32,6 +32,15 @@ const Homepage: React.FC = () => {
     <div className="min-h-screen">   
       <div className="relative text-center max-w-full items-center justify-center p-8 rounded-lg shadow-lg">
       <div className={`${subTitle.className} flex justify-center items-center`}>
+      <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { scale: 0.8, opacity: 0 },
+              visible: { scale: 1, opacity: 1 },
+            }}
+            transition={{ duration: 0.4 }}
+          >
       {(getPoints !== null) ? (<Scoreboard
         totalPoints={getPoints}
         currentLevel={calculateLevels(getPoints)[0]}
@@ -43,6 +52,7 @@ const Homepage: React.FC = () => {
         nextLevel={2}
         progressPercentage={0}
       />)}
+      </motion.div>
     </div>
         <div className="relative z-10 flex flex-col items-center justify-center mt-8">
           {/* Title */}

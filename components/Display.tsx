@@ -29,7 +29,7 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
 
   const [journal, setJournal] = useState<Entry[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
 
   const totalItems = entries.length;
   const firstItemIndex = totalItems - currentPage * itemsPerPage; //calculate how many items to skip from the end of the array to count back from the last item in my database

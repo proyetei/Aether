@@ -6,16 +6,21 @@ import Image from "next/image";
 import { subTitle } from "@/fonts/font";
 import LoadingAnimation from "../animations/LoadingAnimation";
 import { Loader2 } from "lucide-react";
+import { calculateLevels } from "@/lib/calculateLevels";
+import ImageGenerateModal from "../ImageGenerateModal";
 const AetherButton: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [analysisResult, setAnalysisResult] = useState<string | null>("No analysis yet.")
     const [entries, setEntries] = useState<Entry[]>([]);
+    const [getPoints, setUserPoints] = useState<number | null>(null);
     useEffect(() => {
         const fetchEntries = async () => {
             setIsLoading(true);
         try {
-            const response = await axios.get('/api', {});
-            setEntries(response.data);
+            const entriesResponse = await axios.get('/api', {});
+            const pointsResponse = await axios.get("/api/points", {});
+            setEntries(entriesResponse.data);
+            setUserPoints(pointsResponse.data)
         } catch (error) {
             console.error("Error fetching journal:", error);
         } finally {
@@ -47,7 +52,7 @@ const AetherButton: React.FC = () => {
     }
     return(
         <div className=" flex flex-col items-center justify-center gap-4">
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center text-sm">
                 {(!lastDreamEntry || !lastExperienceEntry) ? (
                     <>
                     <button disabled={true} className="opacity-50">
@@ -55,12 +60,32 @@ const AetherButton: React.FC = () => {
                     </button> 
                     <p> One of the entries is missing, cannot perform analysis </p>
                     </>
-                ) : (
+                ) : (getPoints !== null && calculateLevels(getPoints)[2] === true && calculateLevels(getPoints)[3] === false) ? (
                     <>
                     <button onClick={analyzeEntries} className="hover:drop-shadow-blue hover:scale-125">
                         <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
                     </button>
-                    <p> Click me ! </p>
+                    <p> Click for text analysis </p>
+                    </>
+                ) : (getPoints !== null && calculateLevels(getPoints)[2] === true && calculateLevels(getPoints)[3] === true) ? (
+                    <div className="flex flex-row gap-4">
+                        <div>
+                        <button onClick={analyzeEntries} className="hover:drop-shadow-blue hover:scale-125">
+                            <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
+                        </button>
+                        <p> Click for text analysis </p>
+                        </div>
+                        <div>
+                            <ImageGenerateModal />
+                        <p> Click for image analysis </p>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                    <button disabled={true} className="opacity-50">
+                        <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
+                    </button>
+                    <p className="text-red-400 text-sm"> STOP! You havent reached level 2 yet! Please keep journaling to collect points :) </p>
                     </>
                 )}
             </div>
