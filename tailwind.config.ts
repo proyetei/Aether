@@ -75,7 +75,8 @@ const config = {
       dropShadow: {
         pink: "0 0px 15px rgba(255, 122, 191, 0.8)",
         blue: "0 0px 15px rgba(45, 85, 255, 0.8)",
-        white: "0 0px 15px rgba(255, 255, 255, 1)"
+        white: "0 0px 15px rgba(255, 255, 255, 1)",
+        lightblue: "0 0px 15px rgba(130, 120, 255, 0.5)"
         
       },
     },

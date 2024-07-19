@@ -44,21 +44,21 @@ const TabComponent: React.FC = () => {
   return (
     <Tabs defaultValue="experience">
       <TabsList className={`flex items-center justify-center gap-8 w-full bg-transparent ${subTitle.className}`}>
-        {/* EXPERIENCE/MEMORY */}
-        <TabsTrigger value="experience" > Experience/Memory </TabsTrigger>
+        {/* EVENT */}
+        <TabsTrigger value="experience" > Event/Q&A </TabsTrigger>
         <TabsTrigger value="dream"> Dream </TabsTrigger>
       </TabsList>
         <TabsContent value="experience">
-        <Card className="bg-zinc-900 border-none rounded-lg">
+        <Card>
           <CardHeader>
-            <CardTitle className={`${subTitle.className} text-slate-100`}> Experience/Memory </CardTitle>
+            <CardTitle className={`${subTitle.className}`}> Event/Q&A </CardTitle>
             <CardDescription>
               Here you will be able to see all your journals of your life experiences.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2 ">
           {isLoading ? (
-                <p className="flex items-center gap-2 text-slate-100">
+                <p className="flex items-center gap-2">
                 Loading... <Loader2 className="animate-spin" />
                 </p>
             ) : (
@@ -70,16 +70,16 @@ const TabComponent: React.FC = () => {
         </TabsContent>
         {/* DREAM */}
         <TabsContent value="dream">
-        <Card className="bg-zinc-900 border-none rounded-lg">
+        <Card>
           <CardHeader>
-          <CardTitle className={`${subTitle.className} text-slate-100`}> Dreams </CardTitle>
+          <CardTitle className={`${subTitle.className}`}> Dreams </CardTitle>
             <CardDescription>
               Here you will see your dreams that you saw while you were asleep.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
           {isLoading ? (
-                <p className="flex items-center gap-2 text-slate-100">
+                <p className="flex items-center gap-2">
                 Loading... <Loader2 className="animate-spin" />
                 </p>
             ) : (

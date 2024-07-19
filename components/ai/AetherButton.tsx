@@ -53,7 +53,7 @@ const AetherButton: React.FC = () => {
     return(
         <div className=" flex flex-col items-center justify-center gap-4">
             <div className="flex flex-col items-center justify-center text-sm">
-                {(!lastDreamEntry || !lastExperienceEntry) ? (
+                {((!lastDreamEntry || !lastExperienceEntry) && getPoints !== null && calculateLevels(getPoints)[2] === true ) ? (
                     <>
                     <button disabled={true} className="opacity-50">
                         <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
@@ -68,7 +68,7 @@ const AetherButton: React.FC = () => {
                     <p> Click for text analysis </p>
                     </>
                 ) : (getPoints !== null && calculateLevels(getPoints)[2] === true && calculateLevels(getPoints)[3] === true) ? (
-                    <div className="flex flex-row gap-4">
+                    <div className="flex flex-row gap-4 items-center justify-center">
                         <div>
                         <button onClick={analyzeEntries} className="hover:drop-shadow-blue hover:scale-125">
                             <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />

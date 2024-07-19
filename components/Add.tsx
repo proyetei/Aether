@@ -31,7 +31,6 @@ export default function Add() {
           className="max-w-screen-lg mx-auto p-4 rounded-lg md:w-4/5 sm:w-11/12"
         >
           <div className="items-center justify-center">
-            <p className={`${mainTitle.className} text-3xl md:text-5xl text-left font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500`}>Add Entry</p>
           <EntryForm />
           </div>
         </motion.div>

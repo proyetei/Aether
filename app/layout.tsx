@@ -21,10 +21,11 @@ export default function RootLayout({
     <ClerkProvider appearance={{baseTheme: dark}}>
       <html lang="en">
         <body
-          className={`${bodyText.className} bg-gradient-to-b from-slate-900 to-black text-gray-50 relative dark:text-opacity-90`}
+          className={`${bodyText.className} bg-gradient-to-b from-slate-900 via-indigo-950 to-black text-indigo-200 relative dark:text-opacity-90`}
         >
+          <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'var(--background-image)' }}></div>
           {/* SVG at the bottom left corner */}
-          <div className="absolute bottom-20 left-20 z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
+          {/* <div className="absolute bottom-20 left-20 z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
             <Image
               alt="Journal bottom left"
               src="/journal.svg"
@@ -32,10 +33,10 @@ export default function RootLayout({
               height={300} 
               priority
             />
-          </div>
+          </div> */}
 
           {/* SVG at the top right corner */}
-          <div className="absolute top-20 right-20 z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
+          {/* <div className="absolute z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
             <Image
               alt="Constellation top right"
               src="/constellation.svg"
@@ -43,7 +44,7 @@ export default function RootLayout({
               height={300}
               priority
             />
-          </div>
+          </div>  */}
 
           {/* Content */}
           <div className="relative z-10">

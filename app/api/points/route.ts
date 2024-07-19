@@ -23,19 +23,24 @@ export async function GET(req: Request){
 
 export async function POST(req: Request) {
   try {
+    const { promptAnswered } = await req.json();
     const user = await initializeUser();
     const { userId } = auth();
     if (!userId || !user) {
       return redirect("/");
     }
-    const returnUserPoints = await db.user.update({
+    let addPoints = 0
+    if (promptAnswered){
+      addPoints = 2
+    }
+    const updatedUserPoints = await db.user.update({
       where: { userId },
       data: {
-        userPoints: user.userPoints + 3
+        userPoints: user.userPoints + 3 + addPoints
       }
     });
   
-    return NextResponse.json( {returnUserPoints} );
+    return NextResponse.json( updatedUserPoints.userPoints );
   } catch (error: any) {
       console.log("Error with POST API endpoint ", error);
       return new NextResponse("Internal Error", { status: 500 });

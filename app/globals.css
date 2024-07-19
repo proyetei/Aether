@@ -6,6 +6,7 @@
     :root {
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
+      --background-image: url('/twinkle-bg.png');
 
       --card: 0 0% 100%;
       --card-foreground: 222.2 84% 4.9%;
@@ -38,6 +39,7 @@
     .dark {
       --background: 222.2 84% 4.9%;
       --foreground: 210 40% 98%;
+      --background-image: url('/twinkle-bg.png');
 
       --card: 222.2 84% 4.9%;
       --card-foreground: 210 40% 98%;
@@ -70,7 +72,32 @@
     * {
       @apply border-border;
     }
-    body {
+    /* body {
       @apply bg-background text-foreground;
+      background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     }
+  } */
+  body {
+    @apply bg-background text-foreground;
+    position: relative;
+    z-index: 0;
   }
+
+  body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.2;
+    z-index: -1;
+  }
+}

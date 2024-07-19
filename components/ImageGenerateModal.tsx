@@ -14,7 +14,6 @@ const style = {
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
-  p: 4,
 };
 
 export default function ImageGenerateModal() {
@@ -24,7 +23,7 @@ export default function ImageGenerateModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}> <Image src="/image-generation.svg" alt="Aether bot button" height={80} width={80} /></Button>
+      <Button onClick={handleOpen}> <Image src="/image-generation.svg" alt="Aether bot button" height={75} width={75} /></Button>
       <Modal
         open={open}
         onClose={handleClose}

@@ -25,10 +25,15 @@ import { useToast } from "@/components/ui/use-toast"
 import {  bodyText, subTitle } from "@/fonts/font"
 import { redirect, useRouter } from "next/navigation"
 import { FormSchema } from "@/lib/formValidation"
-import { Input } from "../ui/input"
-import { Entry, User} from "@prisma/client"
-import { getCurrentUser } from "@/lib/getCurrentUser"
-import { currentUser } from '@clerk/nextjs/server';
+import { questionBank } from "@/lib/data"
+import { Check, ChevronsUpDown } from "lucide-react"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 const EntryForm: React.FC = () => {
   
@@ -40,8 +45,9 @@ const EntryForm: React.FC = () => {
  
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
+      const promptAnswered = !!data.question; // Simplified boolean check
       await axios.post("/api", {entry: data.entry, selection: data.selection, question: data?.question });
-      await axios.post("/api/points", {} )
+      await axios.post("/api/points", {promptAnswered} )
       await axios.get("/api", {});
       form.reset();
       router.push("/explore")
@@ -67,11 +73,17 @@ const EntryForm: React.FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm ${bodyText.className} p-4 rounded-lg`}> <span className=" md:text-md text-sm text-cyan-100"> Begin your journaling adventure here! Collect +3 points per entry and +2 points for answering the prompt. </span> </div> </FormLabel>
+                <div className={`bg-white/15 backdrop-blur-xl ${subTitle.className} p-4 rounded-lg drop-shadow-blue md:text-lg text-md`}> 
+                Begin your journaling adventure here! Collect 
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +3 points </span> 
+                  per entry and
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +5 points </span> in total for writing a response journal to a question. 
+                </div> 
+              </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Begin journaling..."
-                  className="h-[300px] rounded-sm border-none bg-zinc-900 px-3 py-1.5 md:text-base text-sm text-slate-100 outline-none focus:outline-none"
+                  className="h-[300px] rounded-sm border-none bg-zinc-900 px-3 py-1.5 md:text-base text-sm outline-none focus:outline-none"
                   {...field}
                 />
               </FormControl>
@@ -86,36 +98,65 @@ const EntryForm: React.FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-blue rounded-lg text-cyan-100`}> Select category **  </div> 
+                <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Category*  </div> 
               </FormLabel>
               {/* Set the value that was chosen in order to successfully send to database*/}
               <Select onValueChange={field.onChange} defaultValue={field.value}>
               <FormControl>
-                  <SelectTrigger className="text-slate-900 bg-pink-300">
-                    <SelectValue placeholder="Experience/Dream?" />
+                  <SelectTrigger className="bg-zinc-900">
+                    <SelectValue placeholder="Select..." />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="text-black bg-pink-300">
+                <SelectContent className="bg-zinc-900 text-indigo-200">
                   <SelectItem value="Dream">Dream</SelectItem>
                   <SelectItem value="Experience">Experience</SelectItem>
+                  <SelectItem value="Question">Q/A</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage/>
             </FormItem>
           )}
         />
-          <FormField
+        <FormField
           control={form.control}
           name="question"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-blue rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
+            <FormItem className="flex flex-col">
+              <FormLabel>
+                <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Answer question to receive +5 points  </div> 
               </FormLabel>
-              <FormControl>
-                <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" {...field} />
-                </FormControl>
-              <FormMessage/>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        "w-[200px] justify-between",
+                        !field.value && "bg-zinc-900"
+                      )}
+                    >
+                      {field.value
+                        ? questionBank.map((q) => q.question)
+                        : "Select question"}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-48 p-0 bg-zinc-900 text-indigo-200">
+                  <ScrollArea className="h-72 w-48 rounded-md border">
+                    {questionBank.map((q, index) => (
+                        <div key={index} className="p-2 hover:bg-zinc-700 cursor-pointer text-sm"
+                            onSelect={() => {
+                              form.setValue("question", q.question)
+                            }}>
+                              {q.question}
+                        </div>
+                      ))}
+                  </ScrollArea>
+                </PopoverContent>
+              </Popover>
+              <FormMessage />
             </FormItem>
           )}
         />

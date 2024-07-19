@@ -18,18 +18,18 @@ const Footer: FC<FooterProps> = ({}) => {
             onClick={() => {
               router.push("https://www.linkedin.com/in/proyeteiakanda/");
             }}
-            className="cursor-pointer text-2xl text-slate-300 transition duration-200 hover:rotate-12 hover:scale-105 active:scale-90 "
+            className="cursor-pointer text-2xl transition duration-200 hover:rotate-12 hover:scale-105 active:scale-90 "
           />
           <Link href="https://www.linkedin.com/in/proyeteiakanda/"></Link>
           <FaGithub
             onClick={() => {
               router.push("https://github.com/proyetei");
             }}
-            className="cursor-pointer text-2xl text-slate-300 transition duration-200 hover:rotate-12 hover:scale-105 active:scale-90 "
+            className="cursor-pointer text-2xl transition duration-200 hover:rotate-12 hover:scale-105 active:scale-90 "
           />
           <Link href="https://github.com/proyetei"></Link>
         </div>
-        <p className={`${poppins.className} text-center text-slate-200 text-xs`}>
+        <p className={`${poppins.className} text-center text-xs`}>
           Copyright @{new Date().getFullYear()} Proyetei Reivue
         </p>
     </div>
