@@ -34,7 +34,7 @@ export default function Landing() {
               Aether
             </p>
           </div>
-          <p className={`${subTitle.className} text-xl md:text-2xl py-4`}>
+          <p className={`${subTitle.className} text-xl md:text-2xl py-4 text-indigo-300`}>
             HELPING YOU GAMIFY YOUR PERSONAL GROWTH AND MENTAL HEALTH JOURNEY
           </p>
           <p className={`${poppins.className} text-sm md:text-lg text-slate-100 drop-shadow-blue pb-4`}>
