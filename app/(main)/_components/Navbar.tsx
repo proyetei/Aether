@@ -67,7 +67,7 @@ export default function Navbar() {
             size={25}
             onClick={() => setIsOpen(!isOpen)}
           />
-          <ul className="flex flex-col md:flex-row md:text-[1rem] text-[1.3rem] font-medium gap-8 md:gap-12 p-5 md:px-8 md:py-0">
+          <ul className="flex flex-col md:flex-row md:text-[1rem] text-[1.3rem] font-medium gap-8 md:gap-12 p-5 md:px-8 md:py-0 animate-fade-up">
             {links.map((link) => (
               <motion.li
                 className="h-3/4 flex items-center justify-center relative"

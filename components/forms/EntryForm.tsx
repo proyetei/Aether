@@ -39,6 +39,7 @@ const EntryForm: React.FC = () => {
   
   const router = useRouter();
   const { toast } = useToast();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -96,34 +97,35 @@ const EntryForm: React.FC = () => {
           control={form.control}
           name="selection"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="md:w-[200px] w-2/5">
               <FormLabel> 
                 <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Category*  </div> 
               </FormLabel>
               {/* Set the value that was chosen in order to successfully send to database*/}
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <Select onValueChange={ (value) => {field.onChange; setSelectedCategory(value);} } defaultValue={field.value}>
               <FormControl>
-                  <SelectTrigger className="bg-zinc-900">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-zinc-900 text-indigo-200">
-                  <SelectItem value="Dream">Dream</SelectItem>
-                  <SelectItem value="Experience">Experience</SelectItem>
-                  <SelectItem value="Question">Q/A</SelectItem>
-                </SelectContent>
+                <SelectTrigger className="bg-zinc-900">
+                  <SelectValue placeholder="Select..." />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent className="bg-zinc-900 text-indigo-200">
+                <SelectItem value="Dream">Dream</SelectItem>
+                <SelectItem value="Experience">Experience</SelectItem>
+                <SelectItem value="Question">Q/A</SelectItem>
+              </SelectContent>
               </Select>
               <FormMessage/>
             </FormItem>
           )}
         />
+        {selectedCategory === "Question" && (
         <FormField
           control={form.control}
           name="question"
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>
-                <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Answer question to receive +5 points  </div> 
+                <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Answer question for +5 pts  </div> 
               </FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -132,7 +134,7 @@ const EntryForm: React.FC = () => {
                       variant="outline"
                       role="combobox"
                       className={cn(
-                        "w-[200px] justify-between",
+                        "md:w-[400px] w-full justify-between",
                         !field.value && "bg-zinc-900"
                       )}
                     >
@@ -143,14 +145,17 @@ const EntryForm: React.FC = () => {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-48 p-0 bg-zinc-900 text-indigo-200">
-                  <ScrollArea className="h-72 w-48 rounded-md border">
+                <PopoverContent className="md:w-[400px] w-52 p-0 bg-zinc-900 text-indigo-200">
+                  <ScrollArea className="h-72 md:w-[400px] w-52 rounded-md border">
+                    
                     {questionBank.map((q, index) => (
                         <div key={index} className="p-2 hover:bg-zinc-700 cursor-pointer text-sm"
-                            onSelect={() => {
-                              form.setValue("question", q.question)
-                            }}>
-                              {q.question}
+                        onClick = {() => {
+                          form.setValue("question", q.question);
+                          form.trigger("question"); // Trigger validation for question field
+                        }}
+                      >
+                          {q.question}
                         </div>
                       ))}
                   </ScrollArea>
@@ -160,6 +165,7 @@ const EntryForm: React.FC = () => {
             </FormItem>
           )}
         />
+        )}
         </div>
         <div className="items-center justify-center text-center">
           <Button className="bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-blue hover:scale-125" variant="default">
