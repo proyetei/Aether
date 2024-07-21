@@ -183,7 +183,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         /> */}
         </div>
         <div className="items-center justify-center text-center">
-          <SubmitButton />
+          <SubmitButton placeholder="Submit entry" />
         </div>
       </form>
     </Form>

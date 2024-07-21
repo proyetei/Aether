@@ -9,6 +9,9 @@ import { ClipLoader } from "react-spinners";
 import { calculateLevels } from "@/lib/calculateLevels";
 import Scoreboard from "./Scoreboard";
 import AddEntryModal from "./AddEntryModal";
+import CardFlip from "./CardFlip";
+import { cardData } from "@/lib/data";
+import { Separator } from "./ui/separator";
 const Homepage: React.FC = () => {
   const [getPoints, setUserPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -81,8 +84,15 @@ const Homepage: React.FC = () => {
             transition={{ duration: 0.4, delay: 0.2 }}
           >
             <AddEntryModal />
+            <Separator className="bg-slate-400 mt-4" />
+            <p className={`${subTitle.className} py-12`}> Click on each card to learn more. </p>
+            <div className=" grid md:grid-cols-5 grid-cols-2 gap-4">
+              {cardData.map((card, index) => (
+                <CardFlip key={index} front={card.front} back={card.back} />))}
+            </div>
           </motion.div>
         </div>
+
       </div>
     </div>
   );

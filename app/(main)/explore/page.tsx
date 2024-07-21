@@ -3,9 +3,8 @@ import Explore from "@/components/Explore"
 import NotAuthenticated from "@/components/NotAuthenticated"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 
-const page: React.FC = () => {
+export default function ExplorePage({ placeholder } : {placeholder: string }) {
     return (
-      <Explore />
+      <Explore placeholder={placeholder} />
     );
 };
-export default page;

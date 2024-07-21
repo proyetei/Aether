@@ -78,3 +78,11 @@ export const questionBank = [
         question: "What fears and insecurities do I have? How have they impacted my life?"
     },
 ] as const
+
+export const cardData = [
+    { front: 'Level 1', back: 'Starting level. Collect 9 points to reach level  to unlock text report generation with AI!' },
+    { front: 'Level 2', back: 'Text report generation with AI unlocked! Credit limit: 10' },
+    { front: 'Level 3', back: 'Collect 50 points to reach level 4 to unlock image generation with AI!' },
+    { front: 'Level 4', back: 'Image generation with AI unlocked! Credit limit:10' },
+    { front: 'Level 5', back: 'Congratulations! You did it, you reached the max level! You have unlocked 25 image generation credits, and 50 text analysis reports!' },
+] as const

@@ -9,13 +9,7 @@ export default function Analysis(){
             <AetherButton />
             </div>
             <div className="bg-black/40 backdrop-blur-xl p-6 rounded-xl drop-shadow-lightblue">
-            <p className={`${subTitle.className} text-xl`}> Rules of the game </p>
-            <p> Collect 9 points to reach LEVEL 2</p>
-            <p> Unlock Text Analysis: Powered by AI, Receive comprehensive report analysis into your own pysche by finding a correlation between your event and dream entries. </p>
-            <p> Collect 27 points to reach LEVEL 3 </p>
-            <p> Collect 50 points to reach LEVEL 4 </p>
-            <p> Unlock 5 Image Generation credits: Powered by AI, generate images based on a common theme between your event and dream entries. </p>
-            <p> Collect 100 points to reach LEVEL 5 and unlock 50 image generation credits </p>
+            <p className={`${subTitle.className} text-xl`}> Most recent image generated </p>
             </div>             
             </div>
 
