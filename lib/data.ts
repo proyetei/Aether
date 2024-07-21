@@ -5,10 +5,6 @@ export const links = [
         hash: "homepage"
     },
     {
-        name: "Add entry",
-        hash: "add"
-    },
-    {
         name: "Explore",
         hash: "explore"
     },

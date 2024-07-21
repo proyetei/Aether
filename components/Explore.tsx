@@ -17,9 +17,6 @@ export default function Explore({ placeholder } : {placeholder: string }) {
           <div className="w-full md:w-3/5">
           <SearchFunction placeholder = {placeholder} />
           </div>
-          <div className="md:visible">
-          <Link href="/add"> <Button className=" hover:scale-110 gap-2 bg-gradient-to-r from-pink-400 to-blue-400" size="sm"> <FaPlus /> Add new </Button></Link>
-          </div>
         </div>
           <TabComponent />
       </div>

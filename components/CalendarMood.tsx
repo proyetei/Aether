@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "./ui/use-toast";
 import PieChartUI from "./PieChartUI";
 import { Calendar } from "@/components/ui/calendar"
+import { subTitle } from "@/fonts/font";
 
 
 interface MoodEntry {
@@ -111,7 +112,7 @@ useEffect(() => {
   return (
     <div className="grid grid-cols-[4fr_1fr] gap-4 p-4">
       <div className="flex flex-col items-center justify-center gap-4">
-        <p className="text-md text-[#a8b0d3]">
+        <p className={`${subTitle.className} text-md text-[#a8b0d3]`}>
           Select a date and select your mood on that respective date
         </p>
         <div className="mx-auto items-center justify-center">
@@ -125,7 +126,7 @@ useEffect(() => {
           />
         </div>
         <Button
-          className="hover:scale-125 bg-gradient-to-r from-pink-500 to-blue-400"
+          className="shadow-lg shadow-fuchsia-500/50 hover:scale-90 border-b-4 border-r-4 border-blue-500 bg-gradient-to-r from-blue-400 to-pink-400 hover:opacity-80"
           onClick={onSubmit}
           disabled={loading}
         >
@@ -136,7 +137,7 @@ useEffect(() => {
         {moods.map(({ mood, emoji }) => (
           <div
             key={mood}
-            className={`hover:scale-125 ${selectedMood === mood ? "scale-125" : ""}`}
+            className={`hover:scale-125 ${selectedMood === mood ? "scale-125 drop-shadow-white" : ""}`}
             onClick={() => handleMoodClick(mood)}
           >
             {emoji}

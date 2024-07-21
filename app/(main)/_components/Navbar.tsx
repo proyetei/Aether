@@ -41,7 +41,7 @@ export default function Navbar() {
 
   return (
     <header className="relative z-50">
-      <div className="flex items-center justify-between py-4 md:bg-gradient-to-b from-black to-transparent shadow-md">
+      <div className="flex items-center justify-between py-4 md:bg-gradient-to-b from-black to-transparent">
         <div className="hover:underline px-8 flex flex-row gap-2 items-center justify-center">
           <UserButton afterSignOutUrl="/" />
         </div>

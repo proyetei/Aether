@@ -34,12 +34,13 @@ import {
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import SubmitButton from "../buttons/SubmitButton"
 
-const EntryForm: React.FC = () => {
+const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   
   const router = useRouter();
   const { toast } = useToast();
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -55,6 +56,7 @@ const EntryForm: React.FC = () => {
       toast({
         title: "Submitted!",
       })
+      closeModal();
     } catch(error: any){
       console.error("API Request Error:", error);
       toast({
@@ -74,7 +76,7 @@ const EntryForm: React.FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={`bg-white/15 backdrop-blur-xl ${subTitle.className} p-4 rounded-lg drop-shadow-blue md:text-lg text-md`}> 
+                <div className={` ${subTitle.className} p-4 rounded-lg md:text-base text-sm`}> 
                 Begin your journaling adventure here! Collect 
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +3 points </span> 
                   per entry and
@@ -84,7 +86,7 @@ const EntryForm: React.FC = () => {
               <FormControl>
                 <Textarea
                   placeholder="Begin journaling..."
-                  className="h-[300px] rounded-sm border-none bg-zinc-900 px-3 py-1.5 md:text-base text-sm outline-none focus:outline-none"
+                  className="h-[300px] rounded-sm border-none bg-transparent backdrop-blur-xl text-slate-300 px-3 py-1.5 md:text-base text-sm outline outline-indigo-600 focus:outline-none"
                   {...field}
                 />
               </FormControl>
@@ -92,34 +94,48 @@ const EntryForm: React.FC = () => {
             </FormItem>
           )}
         />
-        <div className="py-4 flex flex-cols-2 gap-4">
+        <div className="flex flex-cols-2 gap-4">
         <FormField
           control={form.control}
           name="selection"
           render={({ field }) => (
-            <FormItem className="md:w-[200px] w-2/5">
-              <FormLabel> 
-                <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Category*  </div> 
-              </FormLabel>
-              {/* Set the value that was chosen in order to successfully send to database*/}
-              <Select onValueChange={ (value) => {field.onChange; setSelectedCategory(value);} } defaultValue={field.value}>
+            <FormItem className="space-y-3">
+              <FormLabel className={`${subTitle.className}`}> Select Category* </FormLabel>
               <FormControl>
-                <SelectTrigger className="bg-zinc-900">
-                  <SelectValue placeholder="Select..." />
-                </SelectTrigger>
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="flex flex-col space-y-1"
+                >
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="Dream" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Dream
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="Experience" />
+                    </FormControl>
+                    <FormLabel className="font-normal">
+                      Experience
+                    </FormLabel>
+                  </FormItem>
+                  <FormItem className="flex items-center space-x-3 space-y-0">
+                    <FormControl>
+                      <RadioGroupItem value="Q/A" />
+                    </FormControl>
+                    <FormLabel className="font-normal">Q/A</FormLabel>
+                  </FormItem>
+                </RadioGroup>
               </FormControl>
-              <SelectContent className="bg-zinc-900 text-indigo-200">
-                <SelectItem value="Dream">Dream</SelectItem>
-                <SelectItem value="Experience">Experience</SelectItem>
-                <SelectItem value="Question">Q/A</SelectItem>
-              </SelectContent>
-              </Select>
-              <FormMessage/>
+              <FormMessage />
             </FormItem>
           )}
         />
-        {selectedCategory === "Question" && (
-        <FormField
+        {/* <FormField
           control={form.control}
           name="question"
           render={({ field }) => (
@@ -164,13 +180,10 @@ const EntryForm: React.FC = () => {
               <FormMessage />
             </FormItem>
           )}
-        />
-        )}
+        /> */}
         </div>
         <div className="items-center justify-center text-center">
-          <Button className="bg-gradient-to-r from-blue-400 to-pink-400 hover:drop-shadow-blue hover:scale-125" variant="default">
-            Submit
-          </Button>
+          <SubmitButton />
         </div>
       </form>
     </Form>

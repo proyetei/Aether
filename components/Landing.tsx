@@ -28,13 +28,13 @@ export default function Landing() {
           }}
           className="flex w-full flex-col items-center gap-4 relative z-10"
         >
-          <div className="flex flex-row gap-4 items-center justify-center drop-shadow-blue animate-flip-up animate-duration-[1000ms] animate-delay-500 animate-ease-in-out">
+          <div className="flex flex-row gap-4 items-center justify-center drop-shadow-intense-blue animate-flip-up animate-duration-[1000ms] animate-delay-500 animate-ease-in-out">
             {/* <Image src="/aether-bot.svg" alt="Aether bot" height={70} width={70} /> */}
             <p className={`${logo.className} md:text-7xl text-5xl font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500 z-10`}>
               Aether
             </p>
           </div>
-          <p className={`${subTitle.className} text-xl md:text-2xl py-4 text-indigo-300`}>
+          <p className={`${subTitle.className} text-xl md:text-2xl py-4 text-indigo-300 drop-shadow-intense-blue`}>
             HELPING YOU GAMIFY YOUR PERSONAL GROWTH AND MENTAL HEALTH JOURNEY
           </p>
           <p className={`${poppins.className} text-sm md:text-lg text-slate-100 drop-shadow-blue pb-4`}>
@@ -43,8 +43,8 @@ export default function Landing() {
           <br/>
           Track your moods daily with our easy-to-use calendar mood tracker and get mood chart reports.
           </p>
-          <Button className=" hover:scale-110 bg-gradient-to-r from-blue-400 to-pink-400 drop-shadow-blue" size="default" asChild>
-            <Link href="/sign-in"><span className={`${subTitle.className}`}> JOIN NOW </span></Link>
+          <Button className="shadow-lg shadow-fuchsia-500/50 hover:scale-90 -skew-y-3 border-b-4 border-blue-500 bg-gradient-to-r from-blue-600 to-pink-500 hover:opacity-85" size="lg" asChild>
+            <Link href="/sign-in"><span className={`${subTitle.className} text-xl`}> SIGN UP </span></Link>
           </Button>
         </motion.div>
         <motion.div className="drop-shadow-white"

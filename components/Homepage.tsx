@@ -8,6 +8,7 @@ import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { calculateLevels } from "@/lib/calculateLevels";
 import Scoreboard from "./Scoreboard";
+import AddEntryModal from "./AddEntryModal";
 const Homepage: React.FC = () => {
   const [getPoints, setUserPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -26,7 +27,8 @@ const Homepage: React.FC = () => {
     fetchUserPoints();
   }, []);
   if (loading) {
-    return <ClipLoader />
+    return (
+      <div className="flex items-center justify-center"> <ClipLoader color="white" /> </div> )
   }
   return (
     <div className="min-h-screen">   
@@ -78,7 +80,7 @@ const Homepage: React.FC = () => {
             }}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            <EnterButton />
+            <AddEntryModal />
           </motion.div>
         </div>
       </div>

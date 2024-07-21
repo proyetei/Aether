@@ -21,31 +21,11 @@ export default function RootLayout({
     <ClerkProvider appearance={{baseTheme: dark}}>
       <html lang="en">
         <body
-          className={`${bodyText.className} bg-gradient-to-b from-slate-900 via-indigo-950 to-black text-indigo-200 relative dark:text-opacity-90`}
+          className={`${bodyText.className} bg-gradient-to-b from-[#1a1927] via-[#19172c] to-zinc-950 text-indigo-200 relative dark:text-opacity-90`}
         >
-          {/* <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'var(--background-image)' }}></div> */}
-          {/* SVG at the bottom left corner */}
-          {/* <div className="absolute bottom-20 left-20 z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
-            <Image
-              alt="Journal bottom left"
-              src="/journal.svg"
-              width={300} 
-              height={300} 
-              priority
-            />
-          </div> */}
-
-          {/* SVG at the top right corner */}
-          {/* <div className="absolute z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
-            <Image
-              alt="Constellation top right"
-              src="/constellation.svg"
-              width={300} 
-              height={300}
-              priority
-            />
-          </div>  */}
-
+          <div className=' absolute -z-10 right-[20rem] h-[20rem] w-[15rem] rounded-full blur-[10rem] sm:w-[68.75rem] bg-[#a11559]'> </div>
+          <div className=' fixed z-0 left-[11rem] h-[20rem] w-[15rem] rounded-full blur-[10rem] sm:w-[68.75rem] bg-[#1a206e]'> </div>
+           {/* <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/header.png')" }}> </div> */}
           {/* Content */}
           <div className="relative z-10">
             {children}

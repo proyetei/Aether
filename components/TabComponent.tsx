@@ -21,11 +21,19 @@ import { Entry } from "@prisma/client"
 import axios from "axios";
 
 
-const TabComponent: React.FC = () => {
+export default async function TabComponent({
+  searchParams
+}: {
+  searchParams?: {
+    query?: string;
+    page?: string;
+  }
+}) {
+  const query = searchParams?.query || '';
   const [isLoading, setIsLoading] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
   const filteredDreams = entries.filter((entry) => entry.selection === "Dream");
-  const filteredExperience = entries.filter((entry) => entry.selection === "Experience")
+  const filteredExperience = entries.filter((entry) => entry.selection === "Experience" || entry.selection === "Q/A")
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -63,7 +71,7 @@ const TabComponent: React.FC = () => {
                 </p>
             ) : (
             <div className="grid grid-cols-1 gap-4">
-            { filteredExperience.length === 0 ? (<p> No journals yet. Click "add new" to add one. </p>) : ( <Display entries={filteredExperience} />)} 
+            { filteredExperience.length === 0 ? (<p> No journals yet. Click "add new" to add one. </p>) : ( <Display entries={filteredExperience} query={query} />)} 
             </div> )}
           </CardContent>
         </Card>
@@ -84,7 +92,7 @@ const TabComponent: React.FC = () => {
                 </p>
             ) : (
           <div className="grid grid-cols-1 gap-4">
-            { filteredDreams.length === 0 ? (<p> No dreams yet. Click "add new" to add one. </p>) : ( <Display entries={filteredDreams} />)}
+            { filteredDreams.length === 0 ? (<p> No dreams yet. Click "add new" to add one. </p>) : ( <Display entries={filteredDreams} query={query} />)}
           </div> )}
           </CardContent>
         </Card>
@@ -93,6 +101,3 @@ const TabComponent: React.FC = () => {
     </Tabs>
   )
 }
-
-
-export default TabComponent

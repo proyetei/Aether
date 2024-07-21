@@ -52,7 +52,7 @@ const ViewModal: React.FC<ViewModalProps> = ({ post }) => {
                 <ModalBody className='text-md'>
                     <p>{post.entry} </p>
                     <Separator className="bg-slate-500"/> 
-                    <p className={`${subTitle.className} flex flex-col gap-1`}> Question chosen </p>
+                    <p className={`${subTitle.className} flex flex-col gap-1`}> {!post.question ? '' :  'Question chose'} </p>
                     <p> {post.question} </p>
                 </ModalBody>
             </>

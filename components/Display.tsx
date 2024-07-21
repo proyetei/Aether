@@ -26,8 +26,9 @@ import { Separator } from './ui/separator';
 
 interface DisplayProps{
   entries: Entry[]
+  query: string
 }
-const Display: React.FC<DisplayProps> = ({entries}) => {
+const Display: React.FC<DisplayProps> = ({entries, query}) => {
 
   const [journal, setJournal] = useState<Entry[]>([]);
   const [currentPage, setCurrentPage] = useState(1);

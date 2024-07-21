@@ -16,7 +16,6 @@ const AetherButton: React.FC = () => {
     const [analysisResult, setAnalysisResult] = useState<string | null>("No analysis yet.")
     const [entries, setEntries] = useState<Entry[]>([]);
     const [getPoints, setUserPoints] = useState<number | null>(null);
-    const { onOpen} = useDisclosure();
     useEffect(() => {
         const fetchEntries = async () => {
             setIsLoading(true);
@@ -56,13 +55,13 @@ const AetherButton: React.FC = () => {
     }
     return(
         <div className=" flex flex-col items-center justify-center gap-4">
-            <div className="flex flex-col items-center justify-center text-sm">
+            <div className="flex flex-col items-center justify-center">
                 {((!lastDreamEntry || !lastExperienceEntry) && getPoints !== null && calculateLevels(getPoints)[2] === true ) ? (
                     <>
                     <button disabled={true} className="opacity-50">
                         <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
                     </button> 
-                    <p> One of the entries is missing, cannot perform analysis </p>
+                    <p className="text-slate-400 md:text-base text-sm"> One of the entries is missing, cannot perform analysis </p>
                     </>
                 ) : (getPoints !== null && calculateLevels(getPoints)[2] === true && calculateLevels(getPoints)[3] === false) ? (
                     <>
@@ -97,26 +96,20 @@ const AetherButton: React.FC = () => {
                 Loading... <Loader2 className="animate-spin" />
                 </p>
             ) : (
-            <div className={`${subTitle.className} items-center justify-center`}>
-                <>
-                <p> Last Dream Entry: </p>
-                <Separator className="bg-slate-500"/>
-                <p>{lastDreamEntry }  </p>
-                <br />
-                <p> Last Experience Entry: </p>
-                <Separator className="bg-slate-500"/>
-                <p> {lastExperienceEntry} </p> 
-                </>
-            </div> )}
-            <div className={`${subTitle.className} items-center justify-center`}>
-                <p> Analysis Result: </p>
-                <Separator className="bg-slate-500"/>
-                {isLoading ? (
-                <p className="flex items-center gap-2">
-                Loading... <Loader2 className="animate-spin" />
-                </p>
-            ) : (analysisResult)}
-            </div>
+                <div className="text-left">
+                    <p className={`${subTitle.className}`}> Last Dream Entry </p>
+                    <Separator className="bg-slate-500"/>
+                    <p className="text-[#a8b0d3] md:text-base text-sm">{lastDreamEntry }  </p>
+                    <br />
+                    <p className={`${subTitle.className}`}> Last Experience Entry </p>
+                    <Separator className="bg-slate-500"/>
+                    <p className="text-[#a8b0d3] md:text-base text-sm"> {lastExperienceEntry} </p>
+                    <br /> 
+                    <p className={`${subTitle.className}`}> Analysis Result </p>
+                    <Separator className="bg-slate-500"/>
+                    <p className="text-[#a8b0d3] md:text-base text-sm">{analysisResult}  </p>
+                </div>
+             )}
         </div>
     )
 }

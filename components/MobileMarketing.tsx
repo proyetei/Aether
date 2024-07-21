@@ -49,7 +49,7 @@ export default function MobileMarketing(){
             </div>
             </div>
             <div className="flex items-center justify-center">
-            <Image src="/mobile-marketing.png" alt="mobile" height={250} width={250} className="skew-y-6 shadow-sm" />
+            <Image src="/mobile-marketing.png" alt="mobile" height={250} width={250} className="skew-y-6 transform -rotate-6 transition hover:scale-105 duration-700 ease-in-out hover:rotate-6" />
             </div>
         </div>
     </motion.div>

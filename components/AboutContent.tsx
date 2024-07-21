@@ -27,9 +27,6 @@ export default function AboutContent() {
   return (
       <div className="w-4/5 items-center rounded-lg relative text-center">
         <Separator className="my-12 opacity-30"/>
-        <div className="animate-flip-up animate-duration-[1000ms] animate-delay-1000 animate-ease-in-out my-6">
-          <h1 className={` ${mainTitle.className} text-left md:text-6xl text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-600`}> About </h1>
-        </div>
         <motion.div
           viewport={{ once: true }}
           whileInView="show"
@@ -41,13 +38,16 @@ export default function AboutContent() {
             show: {
               opacity: 1,
               transition: {
-                duration: 1.50,
+                duration: 2,
                 type: "spring",
               },
             },
           }}
           className="w-full mx-auto rounded-sm shadow-lg"
         >
+        <div className=" my-6">
+          <h1 className={` ${mainTitle.className} text-left md:text-6xl text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-600`}> About </h1>
+        </div>
 
           <div className="flex flex-col space-y-8 md:grid grid-cols-1">
                   <Carousel>
@@ -85,7 +85,7 @@ export default function AboutContent() {
               },
             },
           }}
-          className="items-center rounded-lg bg-black/80 backdrop-blur-s">
+          className="items-center rounded-lg bg-transparent">
             <AboutText />
           </motion.div>
       </div>
