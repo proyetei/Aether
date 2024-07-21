@@ -23,7 +23,7 @@ export default function RootLayout({
         <body
           className={`${bodyText.className} bg-gradient-to-b from-slate-900 via-indigo-950 to-black text-indigo-200 relative dark:text-opacity-90`}
         >
-          <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'var(--background-image)' }}></div>
+          {/* <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'var(--background-image)' }}></div> */}
           {/* SVG at the bottom left corner */}
           {/* <div className="absolute bottom-20 left-20 z-0 lg:scale-90 md:scale-90 sm:scale-50 opacity-50">
             <Image

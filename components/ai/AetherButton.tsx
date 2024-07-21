@@ -8,11 +8,15 @@ import LoadingAnimation from "../animations/LoadingAnimation";
 import { Loader2 } from "lucide-react";
 import { calculateLevels } from "@/lib/calculateLevels";
 import ImageGenerateModal from "../ImageGenerateModal";
+import { Button } from "../ui/button";
+import { useDisclosure } from "@nextui-org/modal";
+import { Separator } from "../ui/separator";
 const AetherButton: React.FC = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [analysisResult, setAnalysisResult] = useState<string | null>("No analysis yet.")
     const [entries, setEntries] = useState<Entry[]>([]);
     const [getPoints, setUserPoints] = useState<number | null>(null);
+    const { onOpen} = useDisclosure();
     useEffect(() => {
         const fetchEntries = async () => {
             setIsLoading(true);
@@ -77,7 +81,6 @@ const AetherButton: React.FC = () => {
                         </div>
                         <div>
                             <ImageGenerateModal />
-                        <p> Click for image analysis </p>
                         </div>
                     </div>
                 ) : (
@@ -97,17 +100,17 @@ const AetherButton: React.FC = () => {
             <div className={`${subTitle.className} items-center justify-center`}>
                 <>
                 <p> Last Dream Entry: </p>
-                <hr />
+                <Separator className="bg-slate-500"/>
                 <p>{lastDreamEntry }  </p>
                 <br />
                 <p> Last Experience Entry: </p>
-                <hr />
+                <Separator className="bg-slate-500"/>
                 <p> {lastExperienceEntry} </p> 
                 </>
             </div> )}
             <div className={`${subTitle.className} items-center justify-center`}>
                 <p> Analysis Result: </p>
-                <hr />
+                <Separator className="bg-slate-500"/>
                 {isLoading ? (
                 <p className="flex items-center gap-2">
                 Loading... <Loader2 className="animate-spin" />

@@ -4,22 +4,18 @@ import { Button } from './ui/button';
 import Image from 'next/image';
 import { FaEye } from "react-icons/fa";
 import { Entry } from '@prisma/client';
-import {  Modal, ModalContent, ModalHeader, ModalBody, useDisclosure, UseDisclosureProps} from "@nextui-org/modal";
+import {  Modal, ModalContent, ModalHeader, ModalBody, useDisclosure} from "@nextui-org/modal";
 import { Divider } from '@mui/material';
 import { subTitle } from '@/fonts/font';
 import { Separator } from "@/components/ui/separator"
-import { IoSparkles } from "react-icons/io5";
-
-const ImageGenerationModal: React.FC = () => {
+interface ViewModalProps{
+    post: Entry
+}
+const ViewModal: React.FC<ViewModalProps> = ({ post }) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     return (
     <div>
-      <div className='flex flex-col items-center justify-center'>
-      <button onClick={onOpen} className='pb-2 hover:drop-shadow-blue'> 
-        <Image src="/image-generation.svg" alt="Aether bot button" height={75} width={75} /> 
-      </button>
-      <p> Click for image analysis </p>
-      </div>
+      <Button onClick={onOpen} variant="ghost" size="sm"> <FaEye className='text-xl' /> </Button>
       <Modal 
         backdrop="blur" 
         classNames={{
@@ -52,17 +48,12 @@ const ImageGenerationModal: React.FC = () => {
         <ModalContent>
             {(onClose) => (
                 <>
-                <ModalHeader className={`${subTitle.className} flex flex-col gap-1`}> Image generator </ModalHeader>
+                <ModalHeader className={`${subTitle.className} flex flex-col gap-1`}> Your entry </ModalHeader>
                 <ModalBody className='text-md'>
-                  <div className='flex items-center justify-center'>
-                  <Button className='bg-indigo-700'>  
-                    <div className='flex flex-row gap-4 items-center justify-center'>
-                      <IoSparkles /> Generate Image with AI 
-                    </div>
-                  </Button>
-                  </div>
+                    <p>{post.entry} </p>
                     <Separator className="bg-slate-500"/> 
-                    <p> Response from AI </p>
+                    <p className={`${subTitle.className} flex flex-col gap-1`}> Question chosen </p>
+                    <p> {post.question} </p>
                 </ModalBody>
             </>
             )}
@@ -71,4 +62,4 @@ const ImageGenerationModal: React.FC = () => {
     </div>
   );
 }
-export default ImageGenerationModal
+export default ViewModal

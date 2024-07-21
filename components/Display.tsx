@@ -21,6 +21,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import ViewModal from './ViewModal';
+import { Separator } from './ui/separator';
 
 interface DisplayProps{
   entries: Entry[]
@@ -61,12 +63,13 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
                 <p className={`${subTitle.className} text-sm font-bold p-1`}> {entry && creationDate ? ` Your entry on ${dateFormat(new Date(creationDate).toISOString())}`: 'Your entry'}</p>
               <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-4'>
                   <p className={` md:text-sm text-xs pb-2`}> {entry ? entry.entry : ''} </p>
-                  <p className={` md:text-sm text-xs`}> {!entry.question ? '' : ( <> <hr className='pb-2'/>  - {entry.question} </> )} </p>
+                  <p className={` md:text-sm text-xs`}> {!entry.question ? '' : ( <> <Separator className='bg-zinc-600 my-2' /> <p> Question chosen: </p>  - {entry.question} </> )} </p>
               </CardContent>
               <CardFooter>
-              <div className='flex flex-row'>
+              <div className='flex flex-row text-[#a8b0d3]'>
                   {entry && <DeleteButton post = {entry}/>}
                   {entry && <EditButton post={entry} />}
+                  {entry && <ViewModal post={entry} />}
               </div>
               </CardFooter>
               </div>

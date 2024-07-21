@@ -41,13 +41,13 @@ export default function Navbar() {
 
   return (
     <header className="relative z-50">
-      <div className="flex items-center justify-between py-8 md:bg-gradient-to-b from-black to-transparent shadow-md">
+      <div className="flex items-center justify-between py-4 md:bg-gradient-to-b from-black to-transparent shadow-md">
         <div className="hover:underline px-8 flex flex-row gap-2 items-center justify-center">
           <UserButton afterSignOutUrl="/" />
         </div>
         {/* Hide the hamburger menu icon on medium size devices*/}
       <div className="md:hidden">
-      <button className="px-8 py-4" onClick={() => setIsOpen(!isOpen)}>
+      <button className="px-6 py-2" onClick={() => setIsOpen(!isOpen)}>
            <Image src="/hamburgermenu.svg" alt="Hamburger menu" height={35} width={35} />
         </button>
       </div>

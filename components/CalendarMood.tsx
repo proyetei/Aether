@@ -111,7 +111,7 @@ useEffect(() => {
   return (
     <div className="grid grid-cols-[4fr_1fr] gap-4 p-4">
       <div className="flex flex-col items-center justify-center gap-4">
-        <p className="md:text-md text-sm">
+        <p className="text-md text-[#a8b0d3]">
           Select a date and select your mood on that respective date
         </p>
         <div className="mx-auto items-center justify-center">

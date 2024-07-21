@@ -23,7 +23,7 @@ const EditButton: FC<EditButtonProps> = ({ post }) => {
   }
   return (
       // <Link href={`/post/${postIdString}/edit`}> 
-      <Button variant="ghost" onClick={goToEditPage} disabled={loading}> <FaEdit className='text-2xl' /> </Button>
+      <Button variant="ghost" onClick={goToEditPage} disabled={loading} size="sm"> <FaEdit className='text-xl' /> </Button>
       // </Link>
   );
 

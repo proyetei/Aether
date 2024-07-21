@@ -5,7 +5,7 @@ export const links = [
         hash: "homepage"
     },
     {
-        name: "Add",
+        name: "Add entry",
         hash: "add"
     },
     {
@@ -13,11 +13,11 @@ export const links = [
         hash: "explore"
     },
     {
-        name: "Calendar",
+        name: "Mood calendar",
         hash: "calendar"
     },
     {
-        name: "Analysis",
+        name: "AI Analysis",
         hash: "analysis"
     },
 

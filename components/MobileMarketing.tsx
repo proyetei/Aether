@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FaApple, FaGooglePlay } from "react-icons/fa";
 import { poppins, subTitle } from "@/fonts/font";
 import { motion } from "framer-motion";
+import { IoLogoAppleAppstore } from "react-icons/io5";
 
 export default function MobileMarketing(){
     return(
@@ -35,7 +36,7 @@ export default function MobileMarketing(){
             <div className="flex flex-row gap-8">
                 <button className="px-2 py-2 text-sm text-white transition duration-300 ease-in-out delay-100 skew-y-3 bg-slate-800 border-b-4 border-slate-950 rounded shadow-lg shadow-purple-600/50 hover:skew-x-6 hover:border-slate-900">
                     <div className="flex flex-row gap-2 items-center justify-center">
-                    <FaApple />
+                    <IoLogoAppleAppstore />
                     <a target="_blank" href="https://www.apple.com/ca/" rel="noopener noreferrer"> App Store </a>
                     </div>     
                 </button>

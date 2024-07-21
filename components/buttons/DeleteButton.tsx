@@ -6,7 +6,7 @@ import { FaTrash } from "react-icons/fa"
 import { getCurrentUser } from "@/lib/getCurrentUser"
 import { Prisma } from "@prisma/client"
 import { db } from "@/lib/prismadb"
-import { RiDeleteBinFill } from "react-icons/ri";
+import { RiDeleteBin2Fill, RiDeleteBinFill } from "react-icons/ri";
 import { FaEdit } from "react-icons/fa";
 import {
     AlertDialog,
@@ -55,7 +55,7 @@ const DeleteButton: React.FC<DeleteEntryProps> = ({ post }) => {
     return (
     <AlertDialog>
         <AlertDialogTrigger asChild>
-            <Button variant="ghost" size="icon"> <RiDeleteBinFill className="text-2xl" /> </Button>
+            <Button variant="ghost" size="sm"> <RiDeleteBin2Fill className="text-xl" /> </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
             <AlertDialogHeader>
