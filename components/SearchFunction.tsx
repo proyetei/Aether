@@ -2,7 +2,7 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { FaSearch } from "react-icons/fa";
 
 
-export default function SearchFunction({placeholder} : {placeholder: string }) {
+export default function SearchFunction() {
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
