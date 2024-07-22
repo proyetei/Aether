@@ -52,15 +52,15 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
 
   return (
     <>
-    <Masonry columns={{xs:1, md:4}} spacing={2} defaultSpacing={1} >
+    <Masonry columns={{xs:2, md:4}} spacing={1} >
       {currentItems?.map((entry, index) => { // map each entry item to its index
         const creationDate = entry?.createdAt
         return (
 
           <Card key={index}>
-            <div className='bg-white/20 backdrop-blur-lg rounded-xl px-1'>
+            <div className='bg-white/20 backdrop-blur-lg rounded-xl px-1 md:text-base text-xs'>
                 <p className={`${subTitle.className} font-bold p-1`}> {entry && creationDate ? ` Your entry on ${dateFormat(new Date(creationDate).toISOString())}`: 'Your entry'}</p>
-              <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-4'>
+              <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-3'>
                   <p className='pb-2'> {entry ? entry.entry : ''} </p>
                   <p> {!entry.question ? '' : ( <> <Separator className='bg-zinc-600 my-2' /> <p> Question chosen: </p>  - {entry.question} </> )} </p>
               </CardContent>

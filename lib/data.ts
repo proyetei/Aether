@@ -9,12 +9,12 @@ export const links = [
         hash: "explore"
     },
     {
-        name: "Mood calendar",
-        hash: "calendar"
-    },
-    {
         name: "AI Analysis",
         hash: "analysis"
+    },
+    {
+        name: "Mood calendar",
+        hash: "calendar"
     },
 
 

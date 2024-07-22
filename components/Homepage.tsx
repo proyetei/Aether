@@ -15,6 +15,11 @@ import { Separator } from "./ui/separator";
 const Homepage: React.FC = () => {
   const [getPoints, setUserPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleModalOpenChange = (isOpen: boolean) => {
+    setModalOpen(isOpen);
+  };
 
   useEffect(() => {
     const fetchUserPoints = async () => {
@@ -70,8 +75,8 @@ const Homepage: React.FC = () => {
             }}
             transition={{ duration: 0.4 }}
           >
-            <h1 className={`${mainTitle.className} md:text-7xl text-5xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500`}>
-              Welcome back!
+            <h1 className={`${subTitle.className} md:text-5xl text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500`}>
+              WELCOME BACK!
             </h1>
           </motion.div>
           <motion.div
@@ -83,8 +88,10 @@ const Homepage: React.FC = () => {
             }}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            <AddEntryModal />
-            <Separator className="bg-slate-400 mt-4" />
+            <button onClick={() => handleModalOpenChange(true)}>
+              <EnterButton />
+            </button>
+            <Separator className="bg-slate-500 mt-4" />
             <p className={`${subTitle.className} py-12`}> Click on each card to learn more. </p>
             <div className=" grid md:grid-cols-5 grid-cols-2 gap-4">
               {cardData.map((card, index) => (
@@ -92,6 +99,7 @@ const Homepage: React.FC = () => {
             </div>
           </motion.div>
         </div>
+        <AddEntryModal isOpen={isModalOpen} onOpenChange={handleModalOpenChange} />
 
       </div>
     </div>

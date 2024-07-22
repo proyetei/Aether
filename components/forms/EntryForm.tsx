@@ -42,6 +42,10 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   
   const router = useRouter();
   const { toast } = useToast();
+  const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
+  const handleSelectQuestion = (question: string) => {
+    setSelectedQuestion(question);
+  }
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -49,7 +53,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const onSubmit = async (data: z.infer<typeof FormSchema>) => {
     try {
       const promptAnswered = !!data.question; // Simplified boolean check
-      await axios.post("/api", {entry: data.entry, selection: data.selection, question: data?.question });
+      await axios.post("/api", {entry: data.entry, selection: data.selection, question: selectedQuestion });
       await axios.post("/api/points", {promptAnswered} )
       await axios.get("/api", {});
       form.reset();
@@ -118,17 +122,11 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Experience" />
+                      <RadioGroupItem value="Event/Q&A" />
                     </FormControl>
                     <FormLabel className="font-normal">
-                      Experience
+                      Event/Q&A
                     </FormLabel>
-                  </FormItem>
-                  <FormItem className="flex items-center space-x-3 space-y-0">
-                    <FormControl>
-                      <RadioGroupItem value="Q/A" />
-                    </FormControl>
-                    <FormLabel className="font-normal">Q/A</FormLabel>
                   </FormItem>
                 </RadioGroup>
               </FormControl>
@@ -142,12 +140,11 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           render={({ field }) => (
             <FormItem className="space-y-3">
               <FormControl>
-                <QuestionGenerator />
+                <QuestionGenerator onSelectQuestion={handleSelectQuestion} />
               </FormControl>
               </FormItem>
           )}
         />
-
         </div>
         <div className="items-center justify-center text-center">
           <SubmitButton placeholder="Submit entry" />

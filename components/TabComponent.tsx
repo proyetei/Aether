@@ -26,7 +26,7 @@ export default async function TabComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
   const filteredDreams = entries.filter((entry) => entry.selection === "Dream");
-  const filteredExperience = entries.filter((entry) => entry.selection === "Experience" || entry.selection === "Q/A")
+  const filteredExperience = entries.filter((entry) => entry.selection === "Event/Q&A")
 
   useEffect(() => {
     const fetchEntries = async () => {
@@ -51,12 +51,6 @@ export default async function TabComponent() {
       </TabsList>
         <TabsContent value="experience">
         <Card>
-          <CardHeader>
-            <CardTitle className={`${subTitle.className}`}> Event/Q&A </CardTitle>
-            <CardDescription>
-              Here you will be able to see all your journals of your life experiences.
-            </CardDescription>
-          </CardHeader>
           <CardContent className="space-y-2 ">
           {isLoading ? (
                 <p className="flex items-center gap-2">
@@ -72,12 +66,6 @@ export default async function TabComponent() {
         {/* DREAM */}
         <TabsContent value="dream">
         <Card>
-          <CardHeader>
-          <CardTitle className={`${subTitle.className}`}> Dreams </CardTitle>
-            <CardDescription>
-              Here you will see your dreams that you saw while you were asleep.
-            </CardDescription>
-          </CardHeader>
           <CardContent className="space-y-2">
           {isLoading ? (
                 <p className="flex items-center gap-2">

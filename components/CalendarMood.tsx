@@ -7,6 +7,7 @@ import { toast } from "./ui/use-toast";
 import PieChartUI from "./PieChartUI";
 import { Calendar } from "@/components/ui/calendar"
 import { subTitle } from "@/fonts/font";
+import SubmitButton from "./buttons/SubmitButton";
 
 
 interface MoodEntry {
@@ -125,13 +126,12 @@ useEffect(() => {
             styles={{ head_cell: { width: "30px" } }}
           />
         </div>
-        <Button
-          className="shadow-lg shadow-fuchsia-500/50 hover:scale-90 border-b-4 border-r-4 border-blue-500 bg-gradient-to-r from-blue-400 to-pink-400 hover:opacity-80"
+        <button
           onClick={onSubmit}
           disabled={loading}
         >
-          {loading ? "Submitting..." : "Submit"}
-        </Button>
+          <SubmitButton placeholder={loading ? "Submitting..." : "Submit"} />
+        </button>
       </div>
       <div className="flex flex-col items-center justify-center gap-4 text-3xl">
         {moods.map(({ mood, emoji }) => (
