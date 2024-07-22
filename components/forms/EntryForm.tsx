@@ -36,6 +36,7 @@ import { cn } from "@/lib/utils"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import SubmitButton from "../buttons/SubmitButton"
+import QuestionGenerator from "../QuestionGenerator"
 
 const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   
@@ -76,7 +77,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={` ${subTitle.className} p-4 rounded-lg md:text-base text-sm`}> 
+                <div className={` ${subTitle.className} p-4 rounded-lg md:text-base text-md`}> 
                 Begin your journaling adventure here! Collect 
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +3 points </span> 
                   per entry and
@@ -135,52 +136,18 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             </FormItem>
           )}
         />
-        {/* <FormField
+        <FormField
           control={form.control}
           name="question"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>
-                <div className={`bg-white/15 backdrop-blur-xl p-4 text-md drop-shadow-blue rounded-lg`}> Answer question for +5 pts  </div> 
-              </FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant="outline"
-                      role="combobox"
-                      className={cn(
-                        "md:w-[400px] w-full justify-between",
-                        !field.value && "bg-zinc-900"
-                      )}
-                    >
-                      {field.value
-                        ? questionBank.map((q) => q.question)
-                        : "Select question"}
-                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="md:w-[400px] w-52 p-0 bg-zinc-900 text-indigo-200">
-                  <ScrollArea className="h-72 md:w-[400px] w-52 rounded-md border">
-                    
-                    {questionBank.map((q, index) => (
-                        <div key={index} className="p-2 hover:bg-zinc-700 cursor-pointer text-sm"
-                        onClick = {() => {
-                          form.setValue("question", q.question);
-                          form.trigger("question"); // Trigger validation for question field
-                        }}
-                      >
-                          {q.question}
-                        </div>
-                      ))}
-                  </ScrollArea>
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
+            <FormItem className="space-y-3">
+              <FormControl>
+                <QuestionGenerator />
+              </FormControl>
+              </FormItem>
           )}
-        /> */}
+        />
+
         </div>
         <div className="items-center justify-center text-center">
           <SubmitButton placeholder="Submit entry" />

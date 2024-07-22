@@ -21,15 +21,8 @@ import { Entry } from "@prisma/client"
 import axios from "axios";
 
 
-export default async function TabComponent({
-  searchParams
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  }
-}) {
-  const query = searchParams?.query || '';
+export default async function TabComponent() {
+
   const [isLoading, setIsLoading] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
   const filteredDreams = entries.filter((entry) => entry.selection === "Dream");
@@ -71,7 +64,7 @@ export default async function TabComponent({
                 </p>
             ) : (
             <div className="grid grid-cols-1 gap-4">
-            { filteredExperience.length === 0 ? (<p> No journals yet. Click "add new" to add one. </p>) : ( <Display entries={filteredExperience} query={query} />)} 
+            { filteredExperience.length === 0 ? (<p> No journals yet. Click "add new" to add one. </p>) : ( <Display entries={filteredExperience} />)} 
             </div> )}
           </CardContent>
         </Card>
@@ -92,7 +85,7 @@ export default async function TabComponent({
                 </p>
             ) : (
           <div className="grid grid-cols-1 gap-4">
-            { filteredDreams.length === 0 ? (<p> No dreams yet. Click "add new" to add one. </p>) : ( <Display entries={filteredDreams} query={query} />)}
+            { filteredDreams.length === 0 ? (<p> No dreams yet. Click "add new" to add one. </p>) : ( <Display entries={filteredDreams}  />)}
           </div> )}
           </CardContent>
         </Card>

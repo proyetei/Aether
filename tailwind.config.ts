@@ -8,7 +8,7 @@ const config = {
     "./components/**/*.{ts,tsx}",
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/(modal|spinner).js"
+    "./node_modules/@nextui-org/theme/dist/components/(card|modal|spinner|ripple).js"
   ],
   prefix: "",
   theme: {

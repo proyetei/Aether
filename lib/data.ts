@@ -46,38 +46,18 @@ export const projectData = [
 ]
 
 export const questionBank = [
-    {
-        question: "What are three things you love about yourself?",
+    "What are three things you love about yourself?",
+    "How would you like to be remembered?",
+    "What are three things you are proud of recently?",
+    "What is one thing that always makes you laugh?",
+    "What is something you wish others knew about you?",
+    "What is something you can do to improve your mental/physical health?",
+    "Who are the 5 people you spend the most time with?",
+    "How can you love yourself more today?",
+    "What's the best compliment you received?",
+    "What fears and insecurities do I have? How have they impacted my life?"
+] as const;
 
-    },
-    {
-        question: "How would you like to be remembered?"
-    },
-    {
-        question: "What are three things you are proud of recently?"
-    },
-    {
-        question: "What is one thing that always makes you laugh?"
-    },
-    {
-        question: "What is something you wish others knew about you?"
-    },
-    {
-        question: "What is something you can do to improve your mental/physical health?"
-    },
-    {
-        question: "Who are the 5 people you spend the most time with?"
-    },
-    {
-        question: "How can you love yourself more today?"
-    },
-    {
-        question: "What's the best compliment you received?"
-    },
-    {
-        question: "What fears and insecurities do I have? How have they impacted my life?"
-    },
-] as const
 
 export const cardData = [
     { front: 'Level 1', back: 'Starting level. Collect 9 points to reach level  to unlock text report generation with AI!' },
