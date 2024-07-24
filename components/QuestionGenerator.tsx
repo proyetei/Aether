@@ -1,40 +1,27 @@
 import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
-import { questionBank } from "@/lib/data";
-import { Button } from "./ui/button";
-import { useState } from "react";
 import { subTitle } from "@/fonts/font";
+import { useQuestion } from "./QuestionContext";
+import useRandomQuestion from "@/lib/randQuesGenerator";
 
-interface QuestionGeneratorProps{
-    onSelectQuestion: (question:string) => void
-}
-const QuestionGenerator: React.FC<QuestionGeneratorProps> = ({ onSelectQuestion }) => {
-    const [randomQuestion, setRandomQuestion] = useState<string | null>("Click Generate to get a random question");
-    const [selection, setSelection] = useState<string | null>();
+const QuestionGenerator: React.FC = () => {
+    const { question, generateRandomQuestion } = useRandomQuestion();
+  const { setSelectedQuestion } = useQuestion();
 
-    const getRandomQuestion = () => {
-        const randIndex = Math.floor(Math.random() * questionBank.length);
-        return questionBank[randIndex];
+  const handleSelectQuestion = () => {
+    if (question) {
+      setSelectedQuestion(question);
     }
-    const handleGenerateClick = () => {
-        const question = getRandomQuestion();
-        setRandomQuestion(question);
-    };
-    const handleSelectClick = () => {
-        if (randomQuestion) { // same as if randomQuestion.length > 1
-            onSelectQuestion(randomQuestion)
-        }
-
-    }
+    console.log(question)
+  };
     return(
         <Card isBlurred
         className="border-none bg-background/60"
         shadow="sm">
             <CardBody className="flex flex-col gap-2 text-sm">
-                <p className={`${subTitle.className} font-extrabold`}> Please select a question to journal on. </p>
-                <p> Question: {randomQuestion} </p>
+                <p className={`${subTitle.className} font-extrabold`}> {question || "Click the button to generate a question."} </p>
                 <div className="flex flex-row gap-4 items-center justify-between">
-                <Button onClick={handleGenerateClick} size="sm"> Generate </Button>
-                <Button onClick={handleSelectClick} size="sm"> Select </Button>
+                <button onClick={generateRandomQuestion} className="bg-indigo-600 px-2 py-1 md:px-3 md:py-2 rounded-sm text-indigo-100 hover:bg-indigo-300"> Generate </button>
+                <button onClick={handleSelectQuestion} className="bg-indigo-600 px-2 py-1 md:px-3 md:py-2 rounded-sm text-indigo-100 hover:bg-indigo-300"> Select </button>
                 </div>
             </CardBody>
         </Card>

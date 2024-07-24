@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import EnterButton from './buttons/EnterButton';
 import EntryForm from './forms/EntryForm';
 import { Modal, ModalContent, useDisclosure } from "@nextui-org/modal";
+import { QuestionProvider } from './QuestionContext';
 
 interface AddEntryModalProps {
   isOpen: boolean;
@@ -11,11 +12,12 @@ interface AddEntryModalProps {
 const AddEntryModal: React.FC<AddEntryModalProps> = ({ isOpen, onOpenChange }) => {
   return (
     <div>
+      <QuestionProvider>
       <Modal
         backdrop="blur"
         classNames={{
           backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
-          base: "border-[#292f46] bg-[#19172c] text-[#a8b0d3] p-2 pb-4 outline",
+          base: "border-[#292f46] bg-[#19172c] text-[#a8b0d3] p-2 pb-4 m-4 outline",
         }}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
@@ -46,6 +48,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ isOpen, onOpenChange }) =
           </div>
         </ModalContent>
       </Modal>
+      </QuestionProvider>
     </div>
   );
 }

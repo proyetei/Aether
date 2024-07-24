@@ -37,15 +37,14 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import SubmitButton from "../buttons/SubmitButton"
 import QuestionGenerator from "../QuestionGenerator"
+import { useQuestion } from "../QuestionContext"
 
 const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   
   const router = useRouter();
   const { toast } = useToast();
-  const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
-  const handleSelectQuestion = (question: string) => {
-    setSelectedQuestion(question);
-  }
+  const { selectedQuestion } = useQuestion();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
@@ -74,15 +73,15 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   return (
     <div className=" items-center justify-center">
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-3">
         <FormField
           control={form.control}
           name="entry"
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={` ${subTitle.className} p-4 rounded-lg md:text-base text-md`}> 
-                Begin your journaling adventure here! Collect 
+                <div className={` ${subTitle.className} pb-2 md:p-4 rounded-lg md:text-base text-md`}> 
+                Collect 
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +3 points </span> 
                   per entry and
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +5 points </span> in total for writing a response journal to a question. 
@@ -134,17 +133,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="question"
-          render={({ field }) => (
-            <FormItem className="space-y-3">
-              <FormControl>
-                <QuestionGenerator onSelectQuestion={handleSelectQuestion} />
-              </FormControl>
-              </FormItem>
-          )}
-        />
+          <QuestionGenerator />
         </div>
         <div className="items-center justify-center text-center">
           <SubmitButton placeholder="Submit entry" />

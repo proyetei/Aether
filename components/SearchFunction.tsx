@@ -28,7 +28,7 @@ export default function SearchFunction() {
                     (e) => { handleSearch(e.target.value)}
                 }
                 defaultValue={searchParams.get('query')?.toString()}
-                className="text-slate-100 bg-zinc-900 p-2 flex-1"
+                className="text-slate-100 bg-zinc-900 md:p-2 p-1 flex-1"
             />
             <FaSearch className="text-lg text-slate-100" />
         </div>
