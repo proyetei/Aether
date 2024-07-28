@@ -8,7 +8,7 @@ const ClerkLayout = ({ children }: { children: React.ReactNode }) => {
     return (
       <div className={`${subTitle.className} min-h-screen flex flex-col gap-4 items-center justify-center py-4`}>
         {children}
-        <div onClick={router.back}>
+        <div onClick={() => router.push("/")}>
           <SubmitButton placeholder={buttonText} />
         </div>
       </div>

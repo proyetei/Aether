@@ -44,6 +44,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
   const router = useRouter();
   const { toast } = useToast();
   const { selectedQuestion } = useQuestion();
+  const [selectedValue, setSelectedValue] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -81,10 +82,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             <FormItem>
               <FormLabel> 
                 <div className={` ${subTitle.className} pb-2 md:p-4 rounded-lg md:text-base text-md`}> 
-                Collect 
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +3 points </span> 
-                  per entry and
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-pink-400"> +5 points </span> in total for writing a response journal to a question. 
+                Journal entry
                 </div> 
               </FormLabel>
               <FormControl>
@@ -113,17 +111,17 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Dream" />
+                      <RadioGroupItem value="Dream" onClick={() => setSelectedValue(false)} />
                     </FormControl>
-                    <FormLabel className="font-normal">
+                    <FormLabel className="font-normal" >
                       Dream
                     </FormLabel>
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Event/Q&A" />
+                      <RadioGroupItem value="Event/Q&A" onClick={() => setSelectedValue(true)}/>
                     </FormControl>
-                    <FormLabel className="font-normal">
+                    <FormLabel className="font-normal" >
                       Event/Q&A
                     </FormLabel>
                   </FormItem>
@@ -133,7 +131,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             </FormItem>
           )}
         />
-          <QuestionGenerator />
+          { selectedValue ? <QuestionGenerator /> : null }
         </div>
         <div className="items-center justify-center text-center">
           <SubmitButton placeholder="Submit entry" />

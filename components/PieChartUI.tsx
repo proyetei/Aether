@@ -1,84 +1,75 @@
-import React, { useState } from 'react';
-import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
-import { dummyCalendarMoodData } from '@/lib/calendarMoodData';
-import { Button } from './ui/button';
+"use client"
+
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-  } from "@/components/ui/select"
-  
+  ChartConfig,
+  ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart"
+
+const chartData = [
+  { month: "January", excited: 10, happy: 6, neutral: 10, sad: 5, angry: 0 }, // 31 days
+  { month: "February", excited: 8, happy: 5, neutral: 8, sad: 7, angry: 1 },  // 29 days (Leap Year)
+  { month: "March", excited: 12, happy: 9, neutral: 6, sad: 3, angry: 1 },    // 31 days
+  { month: "April", excited: 10, happy: 7, neutral: 6, sad: 5, angry: 2 },    // 30 days
+  { month: "May", excited: 11, happy: 8, neutral: 5, sad: 4, angry: 3 },      // 31 days
+  { month: "June", excited: 9, happy: 8, neutral: 7, sad: 4, angry: 2 },      // 30 days
+  { month: "July", excited: 12, happy: 10, neutral: 5, sad: 3, angry: 1 },    // 31 days
+  { month: "August", excited: 11, happy: 9, neutral: 6, sad: 3, angry: 2 },   // 31 days
+  { month: "September", excited: 10, happy: 8, neutral: 7, sad: 4, angry: 1 },// 30 days
+  { month: "October", excited: 11, happy: 9, neutral: 6, sad: 3, angry: 2 },  // 31 days
+  { month: "November", excited: 9, happy: 7, neutral: 6, sad: 5, angry: 3 },  // 30 days
+  { month: "December", excited: 10, happy: 8, neutral: 6, sad: 4, angry: 3 }, // 31 days
+];
+
+
+const chartConfig = {
+  excited: {
+    label: "Excited",
+    color: "#2563eb",
+  },
+  happy: {
+    label: "Happy",
+    color: "#60a5fa",
+  },
+  neutral: {
+    label: "Neutral",
+    color: "#60a5fa",
+  },
+  sad: {
+    label: "Sad",
+    color: "#60a5fa",
+  },
+  angry: {
+    label: "Angry",
+    color: "#60a5fa",
+  },
+} satisfies ChartConfig
 
 export default function PieChartUI() {
-    const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    const [selectedMonth, setSelectedMonth] = React.useState<string>('');
-    const [month, setMonth] = useState<string>('January');
-    const [data, setData] = useState<{ mood: string; count: number }[]>(dummyCalendarMoodData['January']);
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMonth(event.target.value);
-    };
-
-    const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if (dummyCalendarMoodData[month]) {
-            setData(dummyCalendarMoodData[month]);
-        } else {
-            alert('Invalid month');
-        }
-    };
-
-    const pieChartData = data.map(item => ({ id: item.mood, value: item.count }));
-
-    const handleMonthChange = (value: string) => {
-      setSelectedMonth(value);
-    };
-
-    return (
-        <div className='p-4'>
-          <div className='gap-4'>
-          <form onSubmit={handleFormSubmit}>
-            <div className='flex flex-row gap-4 items-center justify-start text-slate-900'>
-            <label className='text-slate-100'>
-                    Enter month:
-                </label>
-                <Select onValueChange={handleMonthChange}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue className="text-slate-900" placeholder="Select a month" />
-        </SelectTrigger>
-        <SelectContent>
-          {months.map((month, index) => (
-            <SelectItem key={index} value={month}>{month}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-                <Button type="submit" variant="secondary" size="sm">Submit</Button>
-            </div>
-            </form>
-          </div>
-            <PieChart
-                series={[
-                    {
-                        arcLabel: (params) => `${params.data.id} (${params.data.value})`,
-                        arcLabelMinAngle: 45,
-                        data: pieChartData,
-                    },
-                ]}
-                sx={{
-                    [`& .${pieArcLabelClasses.root}`]: {
-                        fill: 'white',
-                        fontWeight: 'bold',
-                    },
-                }}
-                width={400} // Define the size of the chart
-                height={400}
-            />
-        </div>
-    );
+  return (
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+      <BarChart accessibilityLayer data={chartData}>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          tickFormatter={(value) => value.slice(0, 3)}
+        />
+        <ChartTooltip content={<ChartTooltipContent />} />
+        <ChartLegend content={<ChartLegendContent />} />
+        <Bar dataKey="excited" fill="var(--color-desktop)" radius={8} />
+        <Bar dataKey="happy" fill="var(--color-mobile)" radius={8} />
+        <Bar dataKey="neutral" fill="var(--color-mobile)" radius={8} />
+        <Bar dataKey="sad" fill="var(--color-mobile)" radius={8} />
+        <Bar dataKey="angry" fill="var(--color-mobile)" radius={8} />
+      </BarChart>
+    </ChartContainer>
+  )
 }
-

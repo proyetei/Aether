@@ -40,7 +40,7 @@ const Homepage: React.FC = () => {
   }
   return (
     <div className="min-h-screen">   
-      <div className="relative text-center max-w-full items-center justify-center p-8 rounded-lg shadow-lg">
+      <div className="relative text-center max-w-full items-center justify-center p-2 md:p-8 rounded-lg">
       <div className={`${subTitle.className} flex justify-center items-center`}>
       <motion.div
             initial="hidden"
@@ -64,7 +64,7 @@ const Homepage: React.FC = () => {
       />)}
       </motion.div>
     </div>
-        <div className="relative z-10 flex flex-col items-center justify-center mt-8">
+        <div className="relative z-10 flex flex-col items-center justify-center md:mt-8 mt-4 text-[#a8b0d3]">
           {/* Title */}
           <motion.div
             initial="hidden"
@@ -75,9 +75,10 @@ const Homepage: React.FC = () => {
             }}
             transition={{ duration: 0.4 }}
           >
-            <h1 className={`${subTitle.className} md:text-5xl text-4xl font-bold mb-8 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-pink-400 to-purple-500`}>
+            <h1 className={`${subTitle.className} md:text-5xl text-4xl font-bold md:mb-8 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-500`}>
               WELCOME BACK!
             </h1>
+            <p className={`${subTitle.className} md:text-base text-sm`}> Click on "add" to begin your journaling adventure! Collect +3 points per entry and +5 points in total for writing a response journal to a question.</p>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -92,7 +93,7 @@ const Homepage: React.FC = () => {
               <EnterButton />
             </button>
             <Separator className="bg-slate-500 mt-4" />
-            <p className={`${subTitle.className} py-12`}> Click on each card to learn more. </p>
+            <p className={`${subTitle.className} md:py-6 py-3`}> Click on each card to learn more. </p>
             <div className=" grid md:grid-cols-5 grid-cols-2 gap-4">
               {cardData.map((card, index) => (
                 <CardFlip key={index} front={card.front} back={card.back} />))}

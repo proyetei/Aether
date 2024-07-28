@@ -17,7 +17,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ isOpen, onOpenChange }) =
         backdrop="blur"
         classNames={{
           backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
-          base: "border-[#292f46] bg-[#19172c] text-[#a8b0d3] p-2 pb-4 m-4 outline",
+          base: "border-[#292f46] bg-[#19172c] text-[#a8b0d3] p-2 pb-4 md:m-4 my-6 mx-4 outline",
         }}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
