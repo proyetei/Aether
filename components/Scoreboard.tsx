@@ -12,9 +12,9 @@ const PointsUI: React.FC<PointsUIProps> = ({ totalPoints, currentLevel, nextLeve
     <div className="bg-indigo-400/70 backdrop-blur-xl rounded-2xl md:p-6 p-4 w-64 shadow-md border-b-4 border-r-4 border-indigo-300">
       <div className="md:text-xl text-md font-bold text-slate-900">TOTAL POINTS</div>
       <div className="md:text-4xl text-2xl font-bold text-slate-900">{totalPoints}</div>
-      <div className=" text-left md:text-md text-sm">Current level</div>
+      <div className=" text-left md:text-md text-md">Current level</div>
       <div className="relative">
-        <div className="flex justify-between text-sm font-medium">
+        <div className="flex justify-between text-md font-medium">
           <span>{currentLevel}</span>
           <span>{nextLevel}</span>
         </div>

@@ -3,7 +3,7 @@ import { logo, subTitle, bodyText, mainTitle, poppins } from "@/fonts/font"
 export default function AboutText(){
     return(
         <>
-              <p className={` ${poppins.className} py-3 text-left text-sm text-purple-200`}> Welcome to {' '}
+              <p className={` ${poppins.className} py-3 text-left text-md text-purple-200`}> Welcome to {' '}
       <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-red-500"> Aether! </span>
       {' '}
       A full-stack {' '}

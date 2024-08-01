@@ -55,7 +55,11 @@ export const questionBank = [
     "Who are the 5 people you spend the most time with?",
     "How can you love yourself more today?",
     "What's the best compliment you received?",
-    "What fears and insecurities do I have? How have they impacted my life?"
+    "What fears and insecurities do I have? How have they impacted my life?",
+    "Reflect on a challenging experience you faced recently. What did you learn from it?",
+    "Describe a place that makes you feel safe and happy. What is it about this place that has this effect on you?",
+    "Write about a time when you felt misunderstood. How did you handle it, and what did you learn?",
+    
 ] as const;
 
 

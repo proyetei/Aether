@@ -26,7 +26,7 @@ export default async function TabComponent() {
   const [isLoading, setIsLoading] = useState(false);
   const [entries, setEntries] = useState<Entry[]>([]);
   const filteredDreams = entries.filter((entry) => entry.selection === "Dream");
-  const filteredExperience = entries.filter((entry) => entry.selection === "Event/Q&A")
+  const filteredExperience = entries.filter((entry) => entry.selection === "Event")
 
   useEffect(() => {
     const fetchEntries = async () => {

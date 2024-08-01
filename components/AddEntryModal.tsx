@@ -11,14 +11,16 @@ interface AddEntryModalProps {
 }
 const AddEntryModal: React.FC<AddEntryModalProps> = ({ isOpen, onOpenChange }) => {
   return (
-    <div>
+    <div className='md:w-[500px]'>
       <QuestionProvider>
       <Modal
         backdrop="blur"
         classNames={{
           backdrop: "bg-[#292f46]/50 backdrop-opacity-40",
-          base: "border-[#292f46] bg-[#19172c] text-[#a8b0d3] p-2 pb-4 md:m-4 my-6 mx-4 outline",
+          base: "border-[#292f46] bg-[#19172c] text-[#a8b0d3] p-2 pb-4 outline",
         }}
+        placement='top-center'
+        scrollBehavior='outside'
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         motionProps={{
@@ -43,7 +45,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ isOpen, onOpenChange }) =
         }}
       >
         <ModalContent>
-          <div className='px-4 pt-6'>
+          <div className='pt-6'>
             <EntryForm closeModal={() => onOpenChange(false)} />
           </div>
         </ModalContent>

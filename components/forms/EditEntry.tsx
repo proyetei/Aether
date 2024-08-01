@@ -27,6 +27,7 @@ import { useToast } from "../ui/use-toast";
 import { FormSchema } from "@/lib/formValidation";
 import {  bodyText, mainTitle, subTitle } from "@/fonts/font";
 import { Input } from "../ui/input";
+import SubmitButton from "../buttons/SubmitButton";
 
 interface EditProps {
   post: Entry
@@ -79,12 +80,10 @@ const EditEntry: FC<EditProps> = ({ post }) => {
           name="entry"
           render={({ field }) => (
             <FormItem>
-              <FormLabel> 
-                <div className={`bg-slate-900 ${bodyText.className} p-4 hover:drop-shadow-glow rounded-lg`}> <span className=" md:text-base text-sm text-cyan-100"> You can begin journaling here. For the most accurate analysis, we recommend journaling both personal life and dream journaling on the same day. </span> </div> </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Begin journaling..."
-                  className="h-[300px] rounded-sm border-none bg-slate-800 px-3 py-1.5 md:text-base text-sm text-slate-100 outline-none focus:outline-none"
+                  className="h-[300px] rounded-sm outline-slate-400 bg-[#19172c] text-[#a8b0d3] px-3 py-1.5 focus:outline-none"
                   {...field}
                 />
               </FormControl>
@@ -92,62 +91,15 @@ const EditEntry: FC<EditProps> = ({ post }) => {
             </FormItem>
           )}
         />
-        <div className="py-4 grid grid-cols-2 gap-4">
-        <FormField
-          control={form.control}
-          name="selection"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> Experience or a dream journal? **  </div> 
-              </FormLabel>
-              {/* Set the value that was chosen in order to successfully send to database*/}
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                  <SelectTrigger className="w-[180px] text-slate-900 bg-pink-300">
-                    <SelectValue placeholder="Experience/Dream?" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="text-black bg-pink-300">
-                  <SelectItem value="Dream">Dream</SelectItem>
-                  <SelectItem value="Experience">Experience</SelectItem>
-                </SelectContent>
-              </Select>
-              <FormMessage/>
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="question"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel> 
-                <div className={`bg-white/10 backdrop-blur-sm p-4 text-md hover:drop-shadow-glow rounded-lg text-cyan-100`}> What is something you are proud of or grateful for today? </div> 
-              </FormLabel>
-              <FormControl>
-                <Input placeholder="Your answer" className="md:w-[500px] text-slate-900 bg-pink-300" />
-                </FormControl>
-              <FormMessage/>
-            </FormItem>
-          )}
-        />
-        </div>
 
-          <div className="mt-6 flex items-center justify-center gap-4 mb-10">
-            {/* <Button className="hover:drop-shadow-glow bg-pink-600" type="button" disabled={loading} variant="ghost" 
-            onClick={() => 
-              toast({description: "Journal updated successfully!",})}>
-              Confirm Changes
-            </Button> */}
-            <div className="items-center justify-center text-center">
-          <Button className="hover:drop-shadow-glow bg-pink-600" type="button" variant="ghost" disabled={loading}>
-        Confirm changes
-        </Button>
-        </div>
-            <Button className="hover:drop-shadow-glow bg-pink-600" type="button" disabled={loading} variant="ghost" onClick={() => router.back()}> Cancel </Button>
+          <div className="mt-6 flex flex-row items-center justify-center gap-4 mb-10">
+            <button onClick={() => onSubmit}>
+            <SubmitButton placeholder="Confirm changes" />
+            </button>
+            <button onClick={() => router.back()}>
+            <SubmitButton placeholder="Cancel" />
+            </button>
           </div>
-
         </form>
       </Form>
       </div>

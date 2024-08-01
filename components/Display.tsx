@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/card"
 import ViewModal from './ViewModal';
 import { Separator } from './ui/separator';
-
+import { useSearchParams } from "next/navigation";
 interface DisplayProps{
   entries: Entry[]
 }
@@ -32,11 +32,17 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
   const [journal, setJournal] = useState<Entry[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(8);
+  const searchParams = useSearchParams();
+  const query = searchParams.get('query')?.toLowerCase() || '';
+  const filteredEntries = entries.filter(entry => 
+    entry.entry.toLowerCase().includes(query) || 
+    entry.question?.toLowerCase().includes(query)
+  );
 
-  const totalItems = entries.length;
-  const firstItemIndex = totalItems - currentPage * itemsPerPage; //calculate how many items to skip from the end of the array to count back from the last item in my database
+  const totalItems = filteredEntries.length;
+  const firstItemIndex = totalItems - currentPage * itemsPerPage; 
   const lastItemIndex = firstItemIndex + itemsPerPage;
-  const currentItems = entries.slice(Math.max(firstItemIndex, 0), lastItemIndex).reverse();
+  const currentItems = filteredEntries.slice(Math.max(firstItemIndex, 0), lastItemIndex).reverse();
 
   useEffect(() => {
     const fetchJournal = async () => {
@@ -58,7 +64,7 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
         return (
 
           <Card key={index}>
-            <div className='bg-white/20 backdrop-blur-lg rounded-xl px-1 md:text-base text-xs'>
+            <div className='bg-white/20 backdrop-blur-lg rounded-xl px-1 md:text-lg text-sm'>
                 <p className={`${subTitle.className} font-bold p-1`}> {entry && creationDate ? ` Your entry on ${dateFormat(new Date(creationDate).toISOString())}`: 'Your entry'}</p>
               <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-3'>
                   <p className='pb-2'> {entry ? entry.entry : ''} </p>

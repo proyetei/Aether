@@ -88,7 +88,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
               <FormControl>
                 <Textarea
                   placeholder="Begin journaling..."
-                  className="h-[300px] rounded-sm border-none bg-transparent backdrop-blur-xl text-slate-300 px-3 py-1.5 md:text-base text-sm outline outline-indigo-600 focus:outline-none"
+                  className="h-[300px] rounded-sm border-none bg-transparent backdrop-blur-xl text-slate-300 px-3 py-1.5"
                   {...field}
                 />
               </FormControl>
@@ -96,7 +96,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             </FormItem>
           )}
         />
-        <div className="flex flex-cols-2 gap-4">
+        <div className="flex md:flex-cols-2 flex-col gap-4 mx-4">
         <FormField
           control={form.control}
           name="selection"
@@ -107,7 +107,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex flex-col space-y-1"
+                  className="flex flex-row space-y-1"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
@@ -119,10 +119,10 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                   </FormItem>
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
-                      <RadioGroupItem value="Event/Q&A" onClick={() => setSelectedValue(true)}/>
+                      <RadioGroupItem value="Event" onClick={() => setSelectedValue(true)}/>
                     </FormControl>
                     <FormLabel className="font-normal" >
-                      Event/Q&A
+                      Event or Q&A
                     </FormLabel>
                   </FormItem>
                 </RadioGroup>

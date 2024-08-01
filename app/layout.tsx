@@ -25,8 +25,6 @@ export default function RootLayout({
         >
           <div className=' absolute -z-10 right-[20rem] h-[20rem] w-[15rem] rounded-full blur-[10rem] sm:w-[68.75rem] bg-[#a11559]'> </div>
           <div className=' fixed z-0 left-[11rem] h-[20rem] w-[15rem] rounded-full blur-[10rem] sm:w-[68.75rem] bg-[#1a206e]'> </div>
-           {/* <div className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/header.png')" }}> </div> */}
-          {/* Content */}
           <div className="relative z-10">
             {children}
           </div>

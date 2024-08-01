@@ -39,7 +39,7 @@ const Homepage: React.FC = () => {
       <div className="flex items-center justify-center"> <ClipLoader color="white" /> </div> )
   }
   return (
-    <div className="min-h-screen">   
+    <div className="min-h-screen overflow-hidden">   
       <div className="relative text-center max-w-full items-center justify-center p-2 md:p-8 rounded-lg">
       <div className={`${subTitle.className} flex justify-center items-center`}>
       <motion.div
@@ -78,7 +78,7 @@ const Homepage: React.FC = () => {
             <h1 className={`${subTitle.className} md:text-5xl text-4xl font-bold md:mb-8 mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-800 to-purple-500`}>
               WELCOME BACK!
             </h1>
-            <p className={`${subTitle.className} md:text-base text-sm`}> Click on "add" to begin your journaling adventure! Collect +3 points per entry and +5 points in total for writing a response journal to a question.</p>
+            <p className={`${subTitle.className} md:text-base text-md`}> Click on "add" to begin your journaling adventure! Collect +3 points per entry and +5 points in total for writing a response journal to a question.</p>
           </motion.div>
           <motion.div
             initial="hidden"
@@ -94,7 +94,7 @@ const Homepage: React.FC = () => {
             </button>
             <Separator className="bg-slate-500 mt-4" />
             <p className={`${subTitle.className} md:py-6 py-3`}> Click on each card to learn more. </p>
-            <div className=" grid md:grid-cols-5 grid-cols-2 gap-4">
+            <div className=" grid md:grid-cols-5 grid-cols-1 gap-4">
               {cardData.map((card, index) => (
                 <CardFlip key={index} front={card.front} back={card.back} />))}
             </div>

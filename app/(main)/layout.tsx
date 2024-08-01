@@ -13,7 +13,7 @@ export default async function MainLayout({
 }) {
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#302c50] to-black">
+    <div className="min-h-screen bg-gradient-to-br from-[#302c50] to-black text-lg">
       <Suspense fallback={<Loading />}>
           <Navbar />
           <main className="h-full">

@@ -37,14 +37,14 @@ export default function Landing() {
           <p className={`${subTitle.className} text-xl md:text-2xl py-4 text-indigo-300 drop-shadow-intense-blue`}>
             HELPING YOU GAMIFY YOUR PERSONAL GROWTH AND MENTAL HEALTH JOURNEY
           </p>
-          <p className={`${poppins.className} text-sm md:text-lg text-slate-100 drop-shadow-blue pb-4`}>
+          <p className={`${poppins.className} text-md md:text-lg text-slate-100 drop-shadow-blue pb-4`}>
           Journal your life events, dreams, and mindfulness practices all in one place.
           Powered by AI, view reports into your own psyche and visualize your journals with image generation. 
           <br/>
           Track your moods daily with our easy-to-use calendar mood tracker and get mood chart reports.
           </p>
           <Button className="shadow-lg shadow-fuchsia-500/50 hover:scale-90 -skew-y-3 border-b-4 border-blue-500 bg-gradient-to-r from-blue-600 to-pink-500 hover:opacity-85" size="lg" asChild>
-            <Link href="/sign-in"><span className={`${subTitle.className} text-xl`}> SIGN UP </span></Link>
+            <Link href="/sign-in"><span className={`${subTitle.className} text-xl text-white`}> SIGN UP </span></Link>
           </Button>
         </motion.div>
         <motion.div className="drop-shadow-white"

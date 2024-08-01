@@ -61,7 +61,7 @@ const AetherButton: React.FC = () => {
                     <button disabled={true} className="opacity-50">
                         <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
                     </button> 
-                    <p className="text-slate-400 md:text-base text-sm"> One of the entries is missing, cannot perform analysis </p>
+                    <p className="text-slate-400 md:text-base text-md"> One of the entries is missing, cannot perform analysis </p>
                     </>
                 ) : (getPoints !== null && calculateLevels(getPoints)[2] === true && calculateLevels(getPoints)[3] === false) ? (
                     <>
@@ -87,7 +87,7 @@ const AetherButton: React.FC = () => {
                     <button disabled={true} className="opacity-50">
                         <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
                     </button>
-                    <p className="text-red-400 text-sm"> STOP! You havent reached level 2 yet! Please keep journaling to collect points :) </p>
+                    <p className="text-red-400 text-md"> STOP! You havent reached level 2 yet! Please keep journaling to collect points :) </p>
                     </>
                 )}
             </div>
@@ -99,15 +99,15 @@ const AetherButton: React.FC = () => {
                 <div className="text-left">
                     <p className={`${subTitle.className}`}> Last Dream Entry </p>
                     <Separator className="bg-slate-500"/>
-                    <p className="text-[#a8b0d3] md:text-base text-sm">{lastDreamEntry }  </p>
+                    <p className="text-[#a8b0d3] md:text-base text-md">{lastDreamEntry }  </p>
                     <br />
                     <p className={`${subTitle.className}`}> Last Experience Entry </p>
                     <Separator className="bg-slate-500"/>
-                    <p className="text-[#a8b0d3] md:text-base text-sm"> {lastExperienceEntry} </p>
+                    <p className="text-[#a8b0d3] md:text-base text-md"> {lastExperienceEntry} </p>
                     <br /> 
                     <p className={`${subTitle.className}`}> Analysis Result </p>
                     <Separator className="bg-slate-500"/>
-                    <p className="text-[#a8b0d3] md:text-base text-sm">{analysisResult}  </p>
+                    <p className="text-[#a8b0d3] md:text-base text-md">{analysisResult}  </p>
                 </div>
              )}
         </div>

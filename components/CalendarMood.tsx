@@ -123,7 +123,6 @@ useEffect(() => {
             selected={dateSelected}
             onSelect={setDateSelected}
             className="rounded-md border"
-            styles={{ head_cell: { width: "30px" } }}
           />
         </div>
         <button
