@@ -1,25 +1,21 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { logo, mainTitle, subTitle } from "@/fonts/font";
+import { subTitle } from "@/fonts/font";
 import { useEffect, useState } from "react";
 import EnterButton from "./buttons/EnterButton";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { calculateLevels } from "@/lib/calculateLevels";
 import Scoreboard from "./Scoreboard";
-import AddEntryModal from "./AddEntryModal";
 import CardFlip from "./CardFlip";
 import { cardData } from "@/lib/data";
-import { Separator } from "./ui/separator";
+import { useRouter } from "next/navigation";
+
 const Homepage: React.FC = () => {
   const [getPoints, setUserPoints] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isModalOpen, setModalOpen] = useState(false);
-
-  const handleModalOpenChange = (isOpen: boolean) => {
-    setModalOpen(isOpen);
-  };
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserPoints = async () => {
@@ -36,10 +32,10 @@ const Homepage: React.FC = () => {
   }, []);
   if (loading) {
     return (
-      <div className="flex items-center justify-center"> <ClipLoader color="white" /> </div> )
+      <div className="flex items-center justify-center min-h-screen"> <ClipLoader color="white" /> </div> )
   }
   return (
-    <div className="min-h-screen overflow-hidden">   
+    <div className="min-h-screen overflow-hidden px-4 md:p-0">   
       <div className="relative text-center max-w-full items-center justify-center p-2 md:p-8 rounded-lg">
       <div className={`${subTitle.className} flex justify-center items-center`}>
       <motion.div
@@ -89,18 +85,16 @@ const Homepage: React.FC = () => {
             }}
             transition={{ duration: 0.4, delay: 0.2 }}
           >
-            <button onClick={() => handleModalOpenChange(true)}>
+            <button onClick={() => router.push("/add")}>
               <EnterButton />
             </button>
-            <Separator className="bg-slate-500 mt-4" />
             <p className={`${subTitle.className} md:py-6 py-3`}> Click on each card to learn more. </p>
-            <div className=" grid md:grid-cols-5 grid-cols-1 gap-4">
+            <div className=" grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 gap-4">
               {cardData.map((card, index) => (
                 <CardFlip key={index} front={card.front} back={card.back} />))}
             </div>
           </motion.div>
         </div>
-        <AddEntryModal isOpen={isModalOpen} onOpenChange={handleModalOpenChange} />
 
       </div>
     </div>

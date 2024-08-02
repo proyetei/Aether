@@ -30,10 +30,10 @@ export default function SearchFunction() {
                     innerWrapper: "bg-transparent",
                     inputWrapper: [
                         "shadow-xl",
-                        "bg-default/40",
+                        "bg-default/30",
                         "backdrop-blur-xl",
                         "backdrop-saturate-200",
-                        "hover:bg-default/70",
+                        "hover:bg-default/50",
                         "group-data-[focus=true]:bg-default/60",
                         "!cursor-text",
                     ],}}

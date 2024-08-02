@@ -39,7 +39,7 @@ import SubmitButton from "../buttons/SubmitButton"
 import QuestionGenerator from "../QuestionGenerator"
 import { useQuestion } from "../QuestionContext"
 
-const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
+const EntryForm: React.FC = () => {
   
   const router = useRouter();
   const { toast } = useToast();
@@ -61,7 +61,6 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
       toast({
         title: "Submitted!",
       })
-      closeModal();
     } catch(error: any){
       console.error("API Request Error:", error);
       toast({
@@ -72,23 +71,23 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
     }
   }
   return (
-    <div className=" items-center justify-center">
+    <div className=" items-center justify-center md:p-12 px-4">
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-3">
+      <form onSubmit={form.handleSubmit(onSubmit)} className=" space-y-6">
         <FormField
           control={form.control}
           name="entry"
           render={({ field }) => (
             <FormItem>
               <FormLabel> 
-                <div className={` ${subTitle.className} pb-2 md:p-4 rounded-lg md:text-base text-md`}> 
+                <div className={` ${subTitle.className} pb-2 md:p-4 rounded-lg text-lg`}> 
                 Journal entry
                 </div> 
               </FormLabel>
               <FormControl>
                 <Textarea
                   placeholder="Begin journaling..."
-                  className="h-[300px] rounded-sm border-none bg-transparent backdrop-blur-xl text-slate-300 px-3 py-1.5"
+                  className="md:h-[400px] h-[350px] rounded-sm border-indigo-600 border-2 bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-white/90 px-3 py-1.5"
                   {...field}
                 />
               </FormControl>
@@ -96,7 +95,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
             </FormItem>
           )}
         />
-        <div className="flex md:flex-cols-2 flex-col gap-4 mx-4">
+        <div className="flex md:flex-cols-2 flex-col gap-4">
         <FormField
           control={form.control}
           name="selection"
@@ -107,13 +106,13 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
-                  className="flex flex-row space-y-1"
+                  className="flex flex-row gap-8"
                 >
                   <FormItem className="flex items-center space-x-3 space-y-0">
                     <FormControl>
                       <RadioGroupItem value="Dream" onClick={() => setSelectedValue(false)} />
                     </FormControl>
-                    <FormLabel className="font-normal" >
+                    <FormLabel className="font-bold" >
                       Dream
                     </FormLabel>
                   </FormItem>
@@ -121,7 +120,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
                     <FormControl>
                       <RadioGroupItem value="Event" onClick={() => setSelectedValue(true)}/>
                     </FormControl>
-                    <FormLabel className="font-normal" >
+                    <FormLabel className="font-bold" >
                       Event or Q&A
                     </FormLabel>
                   </FormItem>
@@ -133,7 +132,7 @@ const EntryForm: React.FC<{ closeModal: () => void }> = ({ closeModal }) => {
         />
           { selectedValue ? <QuestionGenerator /> : null }
         </div>
-        <div className="items-center justify-center text-center">
+        <div className="items-center justify-center text-center pt-6">
           <SubmitButton placeholder="Submit entry" />
         </div>
       </form>

@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Link from 'next/link';
 import { motion } from "framer-motion";
 import { links } from "@/lib/data";
@@ -8,24 +8,36 @@ import { X } from "lucide-react";
 import Image from "next/image";
 import { subTitle } from "@/fonts/font";
 import { useRouter, usePathname } from "next/navigation";
+import axios from "axios";
+import Nickname from "@/components/forms/Nickname";
+import { Button } from "@/components/ui/button";
+
+const API_URL = 'http://localhost:8080/api/nickname'; // URL points to Spring Boot backend
 export default function Navbar() {
   const router = useRouter();
   const path = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-  const sidebarVariants = {
-    hidden: {
-      y: "-100%",
-      opacity: 0,
-      transition: {
-        delay: 0.5,
-      },
-    },
-    show: {
-      y: 0,
-      opacity: 1,
-      duration: 0.3,
-    },
+  const [showInput, setShowInput] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowInput(true);
   };
+  const [savedNickname, setSavedNickname] = useState<string|null>(null) // saved nickname type should be of string
+  const fetchNickname = async () => {
+    try {
+        const response = await axios.get(API_URL);
+        const lastIndex = (Math.max(response.data.length)) - 1
+        if (response.data.length > 0) {
+            setSavedNickname(response.data[lastIndex].name); //fetches the most recent name
+        }
+      } catch (error) {
+        console.error("Error fetching nickname:", error);
+    }
+  };
+  useEffect(() => {
+    fetchNickname();
+  }, []);
+
   const modalVariants = {
     hidden: {
         y: '-100vh',
@@ -42,12 +54,18 @@ export default function Navbar() {
   return (
     <header className="relative z-50">
       <div className="flex items-center justify-between py-4 md:bg-transparent">
-        <div className="hover:underline px-8 flex flex-row gap-2 items-center justify-center">
-          <UserButton afterSignOutUrl="/" />
+        <div className="md:px-8 px-4 flex flex-row gap-2 items-center justify-center">
+        <UserButton afterSignOutUrl="/" />
+      <p className="hover:underline">Hi, {savedNickname}</p>
+      {showInput ? (
+        <Nickname />
+      ) : (
+        <Button variant="link" onClick={handleButtonClick} className="text-slate-40 md:text-lg text-sm">[Update nickname]</Button>
+      )}
         </div>
         {/* Hide the hamburger menu icon on medium size devices*/}
       <div className="md:hidden">
-      <button className="px-6 py-2" onClick={() => setIsOpen(!isOpen)}>
+      <button className="px-3 py-2" onClick={() => setIsOpen(!isOpen)}>
            <Image src="/hamburgermenu.svg" alt="Hamburger menu" height={35} width={35} />
         </button>
       </div>
@@ -69,13 +87,6 @@ export default function Navbar() {
           />
           <ul className="flex flex-col md:flex-row md:text-[1rem] text-[1.3rem] font-medium gap-8 md:gap-12 p-5 md:px-8 md:py-0 animate-fade-up">
             {links.map((link) => (
-              <motion.li
-                className="h-3/4 flex items-center justify-center relative"
-                variants={sidebarVariants}
-                key={link.hash}
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-              >
                 <Link href={`/${link.hash}`}>
                   <div
                     className=
@@ -85,7 +96,6 @@ export default function Navbar() {
                     {link.name}
                   </div>
                 </Link>
-              </motion.li>
             ))}
           </ul>
         </motion.div>
