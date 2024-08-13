@@ -1,14 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { mainTitle } from "@/fonts/font";
+import React from "react";
 import TabComponent from "./TabComponent";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { FaPlus } from "react-icons/fa";
 import SearchFunction from "./SearchFunction";
-import SubmitButton from "./buttons/SubmitButton";
-import AddEntryModal from "./AddEntryModal";
 
 export default function Explore() {
 
