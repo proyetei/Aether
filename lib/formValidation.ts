@@ -1,5 +1,11 @@
 import { z } from "zod";
 export const FormSchema = z.object({
+	title: z.string().min(5, {
+        message: "Title must be more than 2 characters.",
+      })
+      .max(25, {
+        message: "Title must not be greater than 25 characters",
+      }),
     entry: z
       .string()
       .min(5, {

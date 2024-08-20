@@ -58,7 +58,7 @@ export default function Navbar() {
           />
           <ul className="flex flex-col md:flex-row md:text-[1rem] text-[1.3rem] font-medium gap-8 md:gap-12 p-5 md:px-8 md:py-0 animate-fade-up">
             {links.map((link) => (
-                <Link href={`/${link.hash}`}>
+                <Link key={link.hash} href={`/${link.hash}`}>
                   <div
                     className=
                       {` ${subTitle.className} flex w-full items-center justify-center hover:text-indigo-400 transition cursor-pointer hover:scale-125 ${path === `/${link.hash}` ? 'font-bold underline' : ''}`}

@@ -15,10 +15,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { projectData } from "@/lib/data";
 import AboutText from "./AboutText";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { SignedOut } from "@clerk/nextjs";
-import { Separator } from "./ui/separator";
+import { Separator } from "../ui/separator";
 import { mainTitle } from "@/fonts/font";
 
 

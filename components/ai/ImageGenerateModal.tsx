@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import Image from 'next/image';
 import { FaEye } from "react-icons/fa";
 import { Entry } from '@prisma/client';

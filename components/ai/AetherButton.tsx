@@ -7,7 +7,7 @@ import { subTitle } from "@/fonts/font";
 import LoadingAnimation from "../animations/LoadingAnimation";
 import { Loader2 } from "lucide-react";
 import { calculateLevels } from "@/lib/calculateLevels";
-import ImageGenerateModal from "../ImageGenerateModal";
+import ImageGenerateModal from "./ImageGenerateModal";
 import { Button } from "../ui/button";
 import { useDisclosure } from "@nextui-org/modal";
 import { Separator } from "../ui/separator";

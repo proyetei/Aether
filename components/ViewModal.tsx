@@ -8,8 +8,9 @@ import {  Modal, ModalContent, ModalHeader, ModalBody, useDisclosure} from "@nex
 import { Divider } from '@mui/material';
 import { subTitle } from '@/fonts/font';
 import { Separator } from "@/components/ui/separator"
+import { Database } from '@/database.types';
 interface ViewModalProps{
-    post: Entry
+    post: Database['public']['Tables']['entries']['Row']
 }
 const ViewModal: React.FC<ViewModalProps> = ({ post }) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();

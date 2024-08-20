@@ -2,9 +2,9 @@
 import { auth } from "@clerk/nextjs";
 import Landing from "@/components/Landing";
 import { redirect } from "next/navigation";
-import AboutContent from "@/components/AboutContent";
 import MobileMarketing from "@/components/MobileMarketing";
 import Footer from "./_components/Footer";
+import AboutContent from "@/components/about/AboutContent";
 const LandingPage = () => {
   const {userId} = auth();
   if (userId){

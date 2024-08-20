@@ -1,7 +1,8 @@
 
-import CalendarMood from "@/components/CalendarMood"
+
 import { motion } from "framer-motion";
-import PieChartUI from "./PieChartUI";
+import PieChartUI from "../PieChartUI";
+import CalendarMood from "./CalendarMood";
 export default function CalendarPage(){
     return (
       <div className="min-h-screen overflow-hidden">

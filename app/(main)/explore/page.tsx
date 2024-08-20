@@ -1,5 +1,6 @@
+import Explore from "@/components/explore/Explore";
 
-import Explore from "@/components/Explore"
+
 
 export default function ExplorePage() {
     return (

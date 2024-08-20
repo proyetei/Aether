@@ -1,7 +1,7 @@
 "use client"
 
-import LoadingAnimation from "@/components/animations/LoadingAnimation"
+import ExploreSkeleton from "@/components/animations/ExploreSkeleton"
 
 export default function Loading(){
-    return <LoadingAnimation />
+    return <ExploreSkeleton />
 }
