@@ -54,6 +54,20 @@ const Homepage: React.FC = () => {
 
   const client = createClerkSupabaseClient();
 
+  function countUniqueDates(allDates: { moodDate: string }[] | null): number {
+    if (!allDates) {
+      return 0;
+    }
+  
+    const uniqueDates = new Set<string>();
+  
+    allDates.forEach(dateObj => {
+      uniqueDates.add(dateObj.moodDate);
+    });
+  
+    return uniqueDates.size;
+  }
+
   useEffect(() => {
     const fetchEntries = async () => {
       setLoading(true);
@@ -61,10 +75,13 @@ const Homepage: React.FC = () => {
         const {data: allEntries} = await client.from("entries").select();
         const {data: filteredDreams} = (await client.from("entries").select().eq('selection', 'Dream'));
         const {data: filteredJournal} = (await client.from("entries").select().eq('selection', 'Event'));
+        const {data: allDates } = await client.from("calendarMood").select("moodDate");
+
+        const pointCalculation = ((allEntries?.length ?? 0) * 5) + (countUniqueDates(allDates) * 2);
 
         setDreamsCount(filteredDreams?.length ?? 0);
         setJournalCount(filteredJournal?.length ?? 0);
-        setUserPoints((allEntries?.length ?? 0) * 5);
+        setUserPoints(pointCalculation);
 
       } catch (error) {
         console.error("Error fetching journal:", error);
