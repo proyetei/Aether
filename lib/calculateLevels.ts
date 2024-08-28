@@ -7,12 +7,12 @@ export function calculateLevels(points: number): [number, number, boolean, boole
     let imageAnalysis = false
     let textAnalysisLimit = 1
     let imageAnalysisLimit = 1
-    if (points < 25 && points > 1){
+    if (points < 9 && points > 1){
         currentLevel = 1
         percentage = (points / 25) * 100
         textAnalysis = false
         imageAnalysis = false
-    } else if (points < 50 && points >= 25){
+    } else if (points < 50 && points >= 9){
         currentLevel = 2
         percentage = (points / 50) * 100
         textAnalysis = true

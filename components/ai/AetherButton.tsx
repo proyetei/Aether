@@ -59,6 +59,7 @@ const AetherButton: React.FC = () => {
     const fetchEntries = async () => {
       setIsLoading(true);
       try {
+        const {data: allEntries} = await client.from("entries").select();
         const { data: filteredDreams } = await client
           .from("entries")
           .select()
@@ -70,6 +71,7 @@ const AetherButton: React.FC = () => {
 
         setDreams(filteredDreams);
         setJournal(filteredJournal);
+        setUserPoints((allEntries?.length ?? 0)* 5);
         console.log("filtered dreams ==", filteredDreams);
         console.log("filtered journal ==", filteredJournal);
       } catch (error) {
@@ -138,7 +140,7 @@ const AetherButton: React.FC = () => {
               <Image src="/aether-bot.svg" alt="Aether bot button" height={80} width={80} />
             </button>
             <p className="text-red-400 text-md">
-              STOP! You haven't reached level 2 yet! Please keep journaling to collect points :)
+              Please have 2 entries first before performing text analysis 
             </p>
           </>
         )}
