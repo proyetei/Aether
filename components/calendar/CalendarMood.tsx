@@ -1,29 +1,26 @@
-"use client"
+"use client";
+
 import { useState, useEffect } from "react";
-import { Button } from "../ui/button";
 import { useRouter, redirect } from "next/navigation";
-import axios from "axios";
-import PieChartUI from "./PieChartUI";
-import { Calendar } from "@/components/ui/calendar"
+import { Calendar } from "@/components/ui/calendar";
 import { subTitle } from "@/fonts/font";
 import SubmitButton from "../buttons/SubmitButton";
 import { toast } from "../ui/use-toast";
-import { useSession, useUser } from '@clerk/nextjs'
+import { useSession, useUser } from "@clerk/nextjs";
 import { createClient } from "@supabase/supabase-js";
 import { Database } from "@/database.types";
 
-
 interface MoodEntry {
-  mood: string;
+  mood: string | null;
   moodDate: string;
 }
 
 const moodToEmojiMap: { [key: string]: string } = {
   "very happy": "🤩",
-  "happy": "🙂",
+  happy: "🙂",
   "neutral/meh": "😐",
-  "sad": "🙁",
-  "angry": "😡",
+  sad: "🙁",
+  angry: "😡",
 };
 
 const moods = [
@@ -42,65 +39,66 @@ export default function CalendarMood() {
   const router = useRouter();
   const currentDate = new Date();
   const { user } = useUser();
-  // The `useSession()` hook will be used to get the Clerk session object
-  const { session } = useSession()
+  const { session } = useSession();
 
-// Create a custom supabase client that injects the Clerk Supabase token into the request headers
-function createClerkSupabaseClient() {
-  return createClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
-    {
-      global: {
-        // Get the custom Supabase token from Clerk
-        fetch: async (url, options = {}) => {
-          const clerkToken = await session?.getToken({
-            template: 'supabase',
-          })
+  function createClerkSupabaseClient() {
+    return createClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+      {
+        global: {
+          fetch: async (url, options = {}) => {
+            const clerkToken = await session?.getToken({
+              template: "supabase",
+            });
 
-          // Insert the Clerk Supabase token into the headers
-          const headers = new Headers(options?.headers)
-          headers.set('Authorization', `Bearer ${clerkToken}`)
+            const headers = new Headers(options?.headers);
+            headers.set("Authorization", `Bearer ${clerkToken}`);
 
-          // Now call the default fetch
-          return fetch(url, {
-            ...options,
-            headers,
-          })
+            return fetch(url, {
+              ...options,
+              headers,
+            });
+          },
         },
-      },
-    },
-  )
-}
+      }
+    );
+  }
 
   const client = createClerkSupabaseClient();
 
   const handleMoodClick = (mood: string | null) => {
     setSelectedMood(mood);
-    if (mood != null){
-      setTimeout(() => {
-        toast({description: `Mood selected: ${mood}`,});
-      }, 10);
-    } else {
-      setTimeout(() => {
-        toast({description: `Mood was reset`, duration:5});
-      }, 10);      
-    }
-}
+    setTimeout(() => {
+      toast({ description: `Mood selected: ${mood ?? "reset"}` });
+    }, 10);
+  };
 
-useEffect(() => {
-  const fetchExistingMoods = async () => {
-    try {
-      if (!user) {
-        return redirect("/");
-      }
-      const {data : response } = await client.from("calendarMood").select();
-      const existingMoods = response.reduce((acc: { [key: string]: string }, entry: MoodEntry) => {
-        acc[new Date(entry.moodDate).toDateString()] = moodToEmojiMap[entry.mood];
-        return acc;
-      }, {});
-        setMoodMap(existingMoods);
-    } catch (error) {
+  useEffect(() => {
+    const fetchExistingMoods = async () => {
+      try {
+        if (!user) {
+          return redirect("/");
+        }
+        const { data: response, error } = await client.from("calendarMood").select();
+        
+        if (error) {
+          throw error;
+        }
+  
+        if (response) {
+          const existingMoods = response.reduce(
+            (acc: { [key: string]: string }, entry: { mood: string | null; moodDate: string }) => {
+              if (entry.mood) {
+                acc[new Date(entry.moodDate).toDateString()] = moodToEmojiMap[entry.mood];
+              }
+              return acc;
+            },
+            {} as { [key: string]: string }
+          );
+          setMoodMap(existingMoods);
+        }
+      } catch (error) {
         console.error("API Request Error:", error);
         toast({
           title: "Error",
@@ -110,6 +108,7 @@ useEffect(() => {
     };
     fetchExistingMoods();
   }, []);
+  
 
   const onSubmit = async () => {
     if (!selectedMood) {
@@ -126,11 +125,10 @@ useEffect(() => {
 
     try {
       setLoading(true);
-      const {data: existingMoods} = await client.from("calendarMood").select();
-      await client.from('calendarMood').insert([
-        {mood: selectedMood, moodDate: dateSelected, userId: user.id }
-      ])
-      // await axios.post(`/api/calendar`, { mood: selectedMood, moodDate: dateSelected });
+      await client.from("calendarMood").insert([
+        { mood: selectedMood, moodDate: dateSelected?.toISOString(), userId: user.id },
+      ]);
+
       toast({
         title: "Success",
         description: "Your mood entry has been submitted successfully.",
@@ -138,7 +136,7 @@ useEffect(() => {
 
       setMoodMap((prev) => ({
         ...prev,
-        [dateSelected!.toDateString()]: moodToEmojiMap[selectedMood],
+        [dateSelected!.toDateString()]: moodToEmojiMap[selectedMood!],
       }));
 
       router.refresh();
@@ -168,10 +166,7 @@ useEffect(() => {
             className="rounded-md border"
           />
         </div>
-        <button
-          onClick={onSubmit}
-          disabled={loading}
-        >
+        <button onClick={onSubmit} disabled={loading}>
           <SubmitButton placeholder={loading ? "Submitting..." : "Submit"} />
         </button>
       </div>
@@ -185,7 +180,9 @@ useEffect(() => {
             {emoji}
           </div>
         ))}
-        <div className="hover:scale-125" onClick={() => handleMoodClick(null)}>🔄</div>
+        <div className="hover:scale-125" onClick={() => handleMoodClick(null)}>
+          🔄
+        </div>
       </div>
     </div>
   );
