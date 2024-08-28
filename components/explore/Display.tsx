@@ -55,7 +55,14 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
               <p className={`${subTitle.className} p-1`}> { entry && entryTitle} </p>
               <CardContent className=' min-h-[100px] bg-zinc-900 text-slate-200 p-3'>
                   <p className='pb-2'> {entry ? entry.entry : ''} </p>
-                  <p> {!entry.question ? '' : ( <> <Separator className='bg-zinc-600 my-2' /> <p> Question chosen: </p>  - {entry.question} </> )} </p>
+                  <p> {!entry.question ? '' : ( 
+                    <div className='flex flex-col'> 
+                    <Separator className='bg-zinc-600 my-2' /> 
+                    <p> Question chosen: </p>  - {entry.question} 
+                    <p> Answer: </p>  - {entry.answer}
+                    </div> 
+                  )} 
+                  </p>
               </CardContent>
               <CardFooter>
               <p className={`${subTitle.className} text-sm opacity-70 p-1`}> 

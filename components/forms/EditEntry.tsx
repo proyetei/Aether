@@ -1,5 +1,4 @@
 "use client"
-import { Entry } from "@prisma/client";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -10,13 +9,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { z } from "zod";
@@ -28,9 +20,10 @@ import { FormSchema } from "@/lib/formValidation";
 import {  bodyText, mainTitle, subTitle } from "@/fonts/font";
 import { Input } from "../ui/input";
 import SubmitButton from "../buttons/SubmitButton";
+import { Database } from "@/database.types";
 
 interface EditProps {
-  post: Entry
+  post: Database['public']['Tables']['entries']['Row']
 }
 
 const EditEntry: FC<EditProps> = ({ post }) => {
@@ -41,6 +34,7 @@ const EditEntry: FC<EditProps> = ({ post }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      title: post.title,
       entry: post.entry,
       question: post?.question || '',
       selection: post.selection,

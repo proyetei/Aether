@@ -50,21 +50,21 @@ export const projectData = [
 ]
 
 export const questionBank = [
-    "What are three things you love about yourself?",
-    "How would you like to be remembered?",
-    "What are three things you are proud of recently?",
-    "What is one thing that always makes you laugh?",
-    "What is something you wish others knew about you?",
-    "What is something you can do to improve your mental/physical health?",
-    "Who are the 5 people you spend the most time with?",
-    "How can you love yourself more today?",
-    "What's the best compliment you received?",
-    "What fears and insecurities do I have? How have they impacted my life?",
-    "Reflect on a challenging experience you faced recently. What did you learn from it?",
-    "Describe a place that makes you feel safe and happy. What is it about this place that has this effect on you?",
-    "Write about a time when you felt misunderstood. How did you handle it, and what did you learn?",
-    
-] as const;
+    { key: "What are three things you love about yourself?", label: "What are three things you love about yourself?" },
+    { key: "How would you like to be remembered?", label: "How would you like to be remembered?" },
+    { key: "What are three things you are proud of recently?", label: "What are three things you are proud of recently?" },
+    { key: "What is one thing that always makes you laugh?", label: "What is one thing that always makes you laugh?" },
+    { key: "What is something you wish others knew about you?", label: "What is something you wish others knew about you?" },
+    { key: "What is something you can do to improve your mental/physical health?", label: "What is something you can do to improve your mental/physical health?" },
+    { key: "Who are the 5 people you spend the most time with?", label: "Who are the 5 people you spend the most time with?" },
+    { key: "How can you love yourself more today?", label: "How can you love yourself more today?" },
+    { key: "What's the best compliment you received?", label: "What's the best compliment you received?" },
+    { key: "What fears and insecurities do I have? How have they impacted my life?", label: "What fears and insecurities do I have? How have they impacted my life?" },
+    { key: "Reflect on a challenging experience you faced recently. What did you learn from it?", label: "Reflect on a challenging experience you faced recently. What did you learn from it?" },
+    { key: "Describe a place that makes you feel safe and happy. What is it about this place that has this effect on you?", label: "Describe a place that makes you feel safe and happy. What is it about this place that has this effect on you?" },
+    { key: "Write about a time when you felt misunderstood. How did you handle it, and what did you learn?", label: "Write about a time when you felt misunderstood. How did you handle it, and what did you learn?" }
+  ] as const;
+  
 
 
 export const cardData = [

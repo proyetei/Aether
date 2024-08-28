@@ -16,6 +16,7 @@ export const FormSchema = z.object({
       }),
       selection: z.string(),
       question: z.string().optional(),
+      answer: z.string().optional(),
   })
 
 export const CalendarMoodSchema = z.object({

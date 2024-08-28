@@ -15,6 +15,7 @@ export type Database = {
           entry: string
           id: number
           question: string | null
+          answer: string | null
           selection: string
           title: string
           user_id: string
@@ -24,6 +25,7 @@ export type Database = {
           entry: string
           id?: number
           question?: string | null
+          answer?: string | null
           selection: string
           title: string
           user_id: string
@@ -33,6 +35,7 @@ export type Database = {
           entry?: string
           id?: number
           question?: string | null
+          answer?: string | null
           selection?: string
           title?: string
           user_id?: string

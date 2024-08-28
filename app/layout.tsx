@@ -7,6 +7,8 @@ import Image from 'next/image'
 import { Toaster } from '@/components/ui/toaster'
 import {dark} from "@clerk/themes";
 import { bodyText } from '@/fonts/font'
+import NextTopLoader from 'nextjs-toploader';
+
 export const metadata: Metadata = {
   title: 'Aether',
   description: 'A psychological analysis app aimed at improving mental health',
@@ -26,6 +28,7 @@ export default function RootLayout({
           <div className=' absolute -z-10 right-[20rem] h-[20rem] w-[15rem] rounded-full blur-[10rem] sm:w-[68.75rem] bg-[#a11559]'> </div>
           <div className=' fixed z-0 left-[11rem] h-[20rem] w-[15rem] rounded-full blur-[10rem] sm:w-[68.75rem] bg-[#1a206e]'> </div>
           <div className="relative z-10">
+          <NextTopLoader />
             {children}
           </div>
 

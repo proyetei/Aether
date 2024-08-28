@@ -11,8 +11,8 @@ const Footer: FC<FooterProps> = ({}) => {
   const router = useRouter();
 
   return (
-        <div className="flex flex-col items-center justify-center gap-2 py-4
-          2xl:rounded-xl">
+        <div className="flex flex-col items-center justify-end gap-2 py-4
+          2xl:rounded-xl h-64">
         <div className="social-links mx-auto flex gap-2 text-center text-bg sm:gap-4">
           <FaLinkedin
             onClick={() => {
