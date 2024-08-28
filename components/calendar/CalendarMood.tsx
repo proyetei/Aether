@@ -1,14 +1,16 @@
 "use client"
 import { useState, useEffect } from "react";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter, redirect } from "next/navigation";
 import axios from "axios";
-import PieChartUI from "../PieChartUI";
+import PieChartUI from "./PieChartUI";
 import { Calendar } from "@/components/ui/calendar"
 import { subTitle } from "@/fonts/font";
 import SubmitButton from "../buttons/SubmitButton";
 import { toast } from "../ui/use-toast";
-
+import { useSession, useUser } from '@clerk/nextjs'
+import { createClient } from "@supabase/supabase-js";
+import { Database } from "@/database.types";
 
 
 interface MoodEntry {
@@ -39,6 +41,39 @@ export default function CalendarMood() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const currentDate = new Date();
+  const { user } = useUser();
+  // The `useSession()` hook will be used to get the Clerk session object
+  const { session } = useSession()
+
+// Create a custom supabase client that injects the Clerk Supabase token into the request headers
+function createClerkSupabaseClient() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    {
+      global: {
+        // Get the custom Supabase token from Clerk
+        fetch: async (url, options = {}) => {
+          const clerkToken = await session?.getToken({
+            template: 'supabase',
+          })
+
+          // Insert the Clerk Supabase token into the headers
+          const headers = new Headers(options?.headers)
+          headers.set('Authorization', `Bearer ${clerkToken}`)
+
+          // Now call the default fetch
+          return fetch(url, {
+            ...options,
+            headers,
+          })
+        },
+      },
+    },
+  )
+}
+
+  const client = createClerkSupabaseClient();
 
   const handleMoodClick = (mood: string | null) => {
     setSelectedMood(mood);
@@ -56,8 +91,11 @@ export default function CalendarMood() {
 useEffect(() => {
   const fetchExistingMoods = async () => {
     try {
-      const response = await axios.get(`/api/calendar`);
-      const existingMoods = response.data.reduce((acc: { [key: string]: string }, entry: MoodEntry) => {
+      if (!user) {
+        return redirect("/");
+      }
+      const {data : response } = await client.from("calendarMood").select();
+      const existingMoods = response.reduce((acc: { [key: string]: string }, entry: MoodEntry) => {
         acc[new Date(entry.moodDate).toDateString()] = moodToEmojiMap[entry.mood];
         return acc;
       }, {});
@@ -82,13 +120,17 @@ useEffect(() => {
       alert("Selected Date cannot be greater than the current date.");
       return;
     }
+    if (!user) {
+      return redirect("/");
+    }
 
     try {
       setLoading(true);
-      const existingMoods = await axios.get(`/api/calendar`);
-      const dateExists = existingMoods.data.some((entry: MoodEntry) => new Date(entry.moodDate).getTime() === dateSelected?.getTime());
-
-      await axios.post(`/api/calendar`, { mood: selectedMood, moodDate: dateSelected });
+      const {data: existingMoods} = await client.from("calendarMood").select();
+      await client.from('calendarMood').insert([
+        {mood: selectedMood, moodDate: dateSelected, userId: user.id }
+      ])
+      // await axios.post(`/api/calendar`, { mood: selectedMood, moodDate: dateSelected });
       toast({
         title: "Success",
         description: "Your mood entry has been submitted successfully.",

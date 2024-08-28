@@ -18,7 +18,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card"
-import ViewModal from '../ViewModal';
+import ViewModal from './ViewModal';
 import { Separator } from '../ui/separator';
 import { useSearchParams } from "next/navigation";
 import { Database } from '@/database.types';

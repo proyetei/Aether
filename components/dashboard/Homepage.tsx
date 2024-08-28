@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { subTitle } from "@/fonts/font";
 import { useEffect, useState } from "react";
-import EnterButton from "./buttons/EnterButton";
+import EnterButton from "../buttons/EnterButton";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 import { calculateLevels } from "@/lib/calculateLevels";

@@ -1,8 +1,6 @@
 "use client"
 import Image from "next/image";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { FaApple, FaGooglePlay } from "react-icons/fa";
+import { FaGooglePlay } from "react-icons/fa";
 import { poppins, subTitle } from "@/fonts/font";
 import { motion } from "framer-motion";
 import { IoLogoAppleAppstore } from "react-icons/io5";

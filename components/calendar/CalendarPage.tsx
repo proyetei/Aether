@@ -1,7 +1,7 @@
 
 
 import { motion } from "framer-motion";
-import PieChartUI from "../PieChartUI";
+import PieChartUI from "./PieChartUI";
 import CalendarMood from "./CalendarMood";
 export default function CalendarPage(){
     return (
