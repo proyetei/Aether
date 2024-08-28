@@ -26,11 +26,8 @@ import { Database } from "@/database.types";
 import { Select, SelectItem } from "@nextui-org/select";
 import { questionBank } from "@/lib/data";
 
-interface FormProps {
-  points: Database["public"]["Tables"]["userDetails"]["Row"]["points"];
-}
 
-const EntryForm: React.FC<FormProps> = ({ points }) => {
+const EntryForm: React.FC = () => {
   const router = useRouter();
   const { toast } = useToast();
   const { user } = useUser();
