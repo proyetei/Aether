@@ -1,5 +1,5 @@
 
-import Homepage from "@/components/Homepage"
+import Homepage from "@/components/dashboard/Homepage"
 import { Metadata } from "next"
 import { FC } from "react"
 
