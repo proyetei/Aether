@@ -69,8 +69,8 @@ const Display: React.FC<DisplayProps> = ({entries}) => {
                 {entry && creationDate ? `${dateFormat(new Date(creationDate).toISOString())}`: ''}
               </p>
               <div className='flex flex-row text-[#a8b0d3]'>
-                  {/* {entry && <DeleteButton post = {entry}/>} */}
-                  {/* {entry && <EditButton post={entry} />} */}
+                  {entry && <DeleteButton post = {entry}/>}
+                  {entry && <EditButton post={entry} />}
                   {entry && <ViewModal post={entry} />}
               </div> 
               </CardFooter> 

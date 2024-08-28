@@ -1,13 +1,7 @@
 import { Entry } from "@prisma/client"
 import React from "react"
-import { FC } from "react"
 import axios from "axios"
-import { FaTrash } from "react-icons/fa"
-import { getCurrentUser } from "@/lib/getCurrentUser"
-import { Prisma } from "@prisma/client"
-import { db } from "@/lib/prismadb"
-import { RiDeleteBin2Fill, RiDeleteBinFill } from "react-icons/ri";
-import { FaEdit } from "react-icons/fa";
+import { RiDeleteBin2Fill, } from "react-icons/ri";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -22,23 +16,54 @@ import {
 import { useState, useCallback} from "react"
 import { useToast } from "../ui/use-toast"
 import { useRouter } from "next/navigation"
-import { useUser } from "@clerk/nextjs"
-import Image from "next/image"
 import { Button } from "../ui/button"
+import { Database } from '@/database.types';
+import { createClient } from '@supabase/supabase-js'
+import { useSession, useUser } from '@clerk/nextjs'
 interface DeleteEntryProps{
-    post: Entry
+    post: Database['public']['Tables']['entries']['Row']
 }
 const DeleteButton: React.FC<DeleteEntryProps> = ({ post }) => {
-    const user = useUser();
     const [loading, setLoading] = useState(false);
     const {toast} = useToast();
     const router = useRouter();
+  // The `useSession()` hook will be used to get the Clerk session object
+  const { session } = useSession()
 
-    // const currentUser = await getCurrentUser();
+// Create a custom supabase client that injects the Clerk Supabase token into the request headers
+function createClerkSupabaseClient() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    {
+      global: {
+        // Get the custom Supabase token from Clerk
+        fetch: async (url, options = {}) => {
+          const clerkToken = await session?.getToken({
+            template: 'supabase',
+          })
+
+          // Insert the Clerk Supabase token into the headers
+          const headers = new Headers(options?.headers)
+          headers.set('Authorization', `Bearer ${clerkToken}`)
+
+          // Now call the default fetch
+          return fetch(url, {
+            ...options,
+            headers,
+          })
+        },
+      },
+    },
+  )
+}
+
+  const client = createClerkSupabaseClient();
+
     const handleSubmission = useCallback(async () => {
         setLoading(true);
         try {
-            await axios.delete(`/api/post/${post.id}/`);
+            await client.from("entries").delete().eq('id', post.id);
             router.refresh();
             toast({ description: "Journal deleted successfully!" });
         } catch (error) {
