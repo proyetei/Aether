@@ -1,40 +1,70 @@
+"use client"
 import Edit from "@/components/Edit";
 import { FC } from "react";
 import { Metadata } from "next";
-import { db } from "@/lib/prismadb";
-import { getCurrentUser } from "@/lib/getCurrentUser";
-import { redirect } from "next/navigation";
-
+import { createClient } from '@supabase/supabase-js'
+import { useSession, useUser } from '@clerk/nextjs'
+import { Database } from "@/database.types";
 interface pageProps{
     params: {
-      postId: string
+      postId: number
     }
 }
 
-export const metadata: Metadata = {
-  title: "Edit Journal",
-};
+// export const metadata: Metadata = {
+//   title: "Edit Journal",
+// };
 // pass the postId parameters to the page to be able to see the content
 const page: FC<pageProps> = async ({ params }) => {
-  const { postId } = params;
-  const currentUser = await getCurrentUser();
-  const post = await db.entry.findUnique({
-    where: {
-      id: postId,
+  // The `useSession()` hook will be used to get the Clerk session object
+  const { session } = useSession()
+
+// Create a custom supabase client that injects the Clerk Supabase token into the request headers
+function createClerkSupabaseClient() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    {
+      global: {
+        // Get the custom Supabase token from Clerk
+        fetch: async (url, options = {}) => {
+          const clerkToken = await session?.getToken({
+            template: 'supabase',
+          })
+
+          // Insert the Clerk Supabase token into the headers
+          const headers = new Headers(options?.headers)
+          headers.set('Authorization', `Bearer ${clerkToken}`)
+
+          // Now call the default fetch
+          return fetch(url, {
+            ...options,
+            headers,
+          })
+        },
+      },
     },
-  });
-  if (!post) {
+  )
+}
+
+  const client = createClerkSupabaseClient();
+  const { postId } = params;
+  const { data } = await client
+  .from('entries')
+  .select()
+  .eq('id', postId).limit(1).single()
+
+
+  if (!data) {
     return (
       <div>
         Not found!!!
       </div>
     )
   }
-  if (!currentUser || post?.userId !== currentUser?.id) {
-    redirect("/");}
-    return (
+  return (
       <div>
-        <Edit post={post} />
+        <Edit post={data} />
       </div>
     )
   }

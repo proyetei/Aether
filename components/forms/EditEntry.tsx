@@ -21,6 +21,11 @@ import {  bodyText, mainTitle, subTitle } from "@/fonts/font";
 import { Input } from "../ui/input";
 import SubmitButton from "../buttons/SubmitButton";
 import { Database } from "@/database.types";
+import { createClient } from '@supabase/supabase-js'
+import { useSession, useUser } from '@clerk/nextjs'
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectItem } from "@nextui-org/select";
+import { questionBank } from "@/lib/data";
 
 interface EditProps {
   post: Database['public']['Tables']['entries']['Row']
@@ -30,6 +35,12 @@ const EditEntry: FC<EditProps> = ({ post }) => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
+  const [selectedValue, setSelectedValue] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState<string | null>(null);
+
+  const handleQuestionChange = (value: string | null) => {
+    setSelectedQuestion(value);
+  };
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -37,17 +48,57 @@ const EditEntry: FC<EditProps> = ({ post }) => {
       title: post.title,
       entry: post.entry,
       question: post?.question || '',
+      answer: post?.answer || '',
       selection: post.selection,
     },
   });
+  // The `useSession()` hook will be used to get the Clerk session object
+  const { session } = useSession()
 
+// Create a custom supabase client that injects the Clerk Supabase token into the request headers
+function createClerkSupabaseClient() {
+  return createClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY!,
+    {
+      global: {
+        // Get the custom Supabase token from Clerk
+        fetch: async (url, options = {}) => {
+          const clerkToken = await session?.getToken({
+            template: 'supabase',
+          })
+
+          // Insert the Clerk Supabase token into the headers
+          const headers = new Headers(options?.headers)
+          headers.set('Authorization', `Bearer ${clerkToken}`)
+
+          // Now call the default fetch
+          return fetch(url, {
+            ...options,
+            headers,
+          })
+        },
+      },
+    },
+  )
+}
+
+  const client = createClerkSupabaseClient();
   const onSubmit = async(data: z.infer<typeof FormSchema>) => {
     try {
       setLoading(true); 
-    await axios.put(`/api/post/${post.id}`, {entry: data.entry, selection: data.selection, question: data?.question})
-      .then((response) => {
-        console.log("Success!", response);
-      })
+    // await axios.put(`/api/post/${post.id}`, {entry: data.entry, selection: data.selection, question: data?.question})
+    //   .then((response) => {
+    //     console.log("Success!", response);
+    //   })
+    await client.from('entries').update({          
+      title: data.title,
+      entry: data.entry,
+      selection: data.selection,
+      question: selectedQuestion,
+      answer: data?.answer,
+    }).eq('id', post.id)
+
     } catch(error)  {
         console.error("API Request Error:", error);
         toast({
@@ -60,31 +111,150 @@ const EditEntry: FC<EditProps> = ({ post }) => {
   }
 
   return (
-    <div className=" items-center justify-center mb-8">
+    <div className="items-center justify-center md:p-12 px-4">
       <div> 
       <Form {...form}>
         <form
           className="space-y-6"
           onSubmit={form.handleSubmit(onSubmit)}
         >
-
-          {/* EDIT ENTRY SECTION */}
+          {/* TITLE */}
           <FormField
-          control={form.control}
-          name="entry"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea
-                  placeholder="Begin journaling..."
-                  className="h-[300px] rounded-sm outline-slate-400 bg-[#19172c] text-[#a8b0d3] px-3 py-1.5 focus:outline-none"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <div
+                    className={` ${subTitle.className} pb-2 md:p-4 rounded-lg text-lg`}
+                  >
+                    Please enter a title* (25 characters max.)
+                  </div>
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="Title..."
+                    className="md:w-2/5 w-full rounded-sm border-indigo-600 border-2 bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-white/90 px-3 py-1.5"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* JOURNALING SECTION */}
+          <FormField
+            control={form.control}
+            name="entry"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  <div
+                    className={` ${subTitle.className} pb-2 md:p-4 rounded-lg text-lg`}
+                  >
+                    Journal entry* (250 characters max.)
+                  </div>
+                </FormLabel>
+                <FormControl>
+                  <Textarea
+                    placeholder="Begin journaling..."
+                    className="md:h-[400px] h-[350px] rounded-sm border-indigo-600 border-2 bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-white/90 px-3 py-1.5"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        {/* CATEGORY SECTION */}
+        <div className="flex md:flex-cols-2 flex-col gap-4">
+            <FormField
+              control={form.control}
+              name="selection"
+              render={({ field }) => (
+                <FormItem className="space-y-3">
+                  <FormLabel className={`${subTitle.className}`}>
+                    Select Category*
+                  </FormLabel>
+                  <FormControl>
+                    <RadioGroup
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      className="flex flex-row gap-8"
+                    >
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem
+                            value="Dream"
+                            onClick={() => setSelectedValue(false)}
+                          />
+                        </FormControl>
+                        <FormLabel className="font-bold">Dream</FormLabel>
+                      </FormItem>
+                      <FormItem className="flex items-center space-x-3 space-y-0">
+                        <FormControl>
+                          <RadioGroupItem
+                            value="Event"
+                            onClick={() => setSelectedValue(true)}
+                          />
+                        </FormControl>
+                        <FormLabel className="font-bold">Event or Q&A</FormLabel>
+                      </FormItem>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          {/* QUESTION AND ANSWER */}
+          <div className="flex w-full md:w-2/5 flex-col gap-4">
+              <FormField
+                control={form.control}
+                name="question"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <div className="flex w-full flex-wrap items-end md:flex-nowrap mb-6 md:mb-0 gap-4">
+                        <Select
+                          placeholder="Select question..."
+                          className="w-full p-1 bg-violet-400/15 border-indigo-600 border-1 rounded-md"
+                          selectedKeys={
+                            selectedQuestion ? new Set([selectedQuestion]) : undefined
+                          }
+                          onSelectionChange={(keys) => {
+                            const selectedKey = Array.from(keys).join("");
+                            handleQuestionChange(selectedKey || null);
+                          }}
+                        >
+                          {questionBank.map((q) => (
+                            <SelectItem key={q.key}>{q.label}</SelectItem>
+                          ))}
+                        </Select>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="answer"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Answer here..."
+                        className="w-full h-[200px] rounded-sm border-indigo-600 border-2 bg-white/10 backdrop-blur-xl backdrop-saturate-200 text-white/90 px-3 py-1.5"
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <p className="text-sm text-default-500">
+                Selected: {selectedQuestion}
+              </p>
+          </div>
+          </div>
 
           <div className="mt-6 flex flex-row items-center justify-center gap-4 mb-10">
             <button onClick={() => onSubmit}>

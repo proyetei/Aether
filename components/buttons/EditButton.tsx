@@ -7,8 +7,9 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { Button } from '../ui/button';
 import { FaEdit } from "react-icons/fa";
-interface EditButtonProps {
-  post: Entry
+import { Database } from '@/database.types';
+interface EditButtonProps{
+    post: Database['public']['Tables']['entries']['Row']
 }
 
 const EditButton: FC<EditButtonProps> = ({ post }) => {
