@@ -1,6 +1,7 @@
-import CalendarPage from "@/components/calendar/CalendarPage";
+import CalendarMood from "@/components/calendar/CalendarMood";
+
 
 
 export default function CalendarMoodPage(){
-    return <CalendarPage />
+    return <CalendarMood />
 }
