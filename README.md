@@ -12,11 +12,13 @@ A full-stack AI application powered by GPT-4 where users to journal their nightl
 - About the app
 
 ## More comprehensive details on the tech stack
-- React.js/Next.js 14 for SSR(Server-Side-Rendering), static site generation and fast loading times
-- Typescript as the language
-- Postgre SQL backend database
-- AWS S3 cloud storage
-- Clerk for user authentication
-- Tailwind CSS for styling
-- React Hook forms and ZOD validation for form creation and validations schemas
-- OpenAI GPT 4.0 API for the analysis
+- Framework: React.js/Next.js 14 as the full-stack framework which allows for Server-Side-Rendering (SSR), Static Site Generation (SSG), and optimized performance
+- Language: Typescript
+- Backend: Next.js
+- Backend: Postgre SQL
+- Backend: NextResponse for the Web API & Axios as the HTTP client
+- Cloud storage: AWS S3
+- AI Analysis: OpenAI GPT 4.0 API
+- User authentication: Clerk
+- Styling: Tailwind CSS
+- Libraries: Radix UI, React Hook form, ZOD, Framer Motion, Recharts, and many more
